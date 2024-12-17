@@ -1,8 +1,9 @@
 # Projeto_WebsiteFergalicci
 
 <p align="center">
-  <img src="caminho ainda nao def" width="321" height="90">
+    <img src="https://github.com/user-attachments/assets/088aec06-8c7b-45f9-8396-8f6b0b3cbec5" width="40" height="60">
 </p>
+
 
 <p align="center"> Projeto Final da disciplina de Engenharia de Software - Universidade Federal de Lavras </p>
 
