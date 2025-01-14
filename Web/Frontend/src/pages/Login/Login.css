@@ -1,0 +1,113 @@
+.login {
+    background-color: var(--vinho);
+    background-image: url('imgs/textura_pelos.png');
+    background-size: cover;
+    background-blend-mode: multiply;
+    opacity: 0.93; 
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login .forms-login {
+    background-color: var(--branco);
+    padding: 7rem 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 45vh;
+    color: var(--preto);
+}
+
+.intro-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.campos-login {
+    margin-top: 6rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem; 
+}
+
+.campos-login .modal-input {
+    border: solid 1px var(--preto);
+    width: 100%;
+    height: 2.5rem;
+    display: flex;
+}
+
+.campos-login .modal-input input {
+    width: 100%;
+    background-color: var(--branco);
+    color: var(--preto);
+}
+
+.btn-login {
+    margin-top: 2rem;
+    font-family: 'Lora';
+    background-color: var(--rosa);
+    padding: 0.4rem 1.5rem;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.login .forms-login a {
+    color: var(--preto);
+    margin-top: 1rem;
+}
+
+@media (max-width: 700px) {
+    .login .forms-login {
+        padding: 5rem 2rem;
+    }
+
+    .campos-login {
+        margin-top: 3.3rem; 
+    }
+
+    .campos-login .modal-input {
+        height: 2rem;
+    }
+
+    .logo-login {
+        width: 300px;
+    }
+
+    .btn-login {
+        margin-top: 1.7rem;
+        font-size: 16px;
+    }
+    
+    .login .forms-login a {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 400px) {
+    .login .forms-login {
+        padding: 5rem 1.2rem;
+    }
+
+    .campos-login {
+        margin-top: 3.3rem; 
+    }
+
+    .campos-login .modal-input {
+        height: 2rem;
+    }
+
+    .logo-login {
+        width: 250px;
+    }
+
+    .btn-login {
+        padding: 0.3rem 1.2rem;
+    }
+}
