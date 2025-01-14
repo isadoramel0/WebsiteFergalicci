@@ -9,8 +9,8 @@ async function connect() {
     }
 
     // Caso contrário, crie e retorne uma nova conexão
-    const pool = new pg.pool({
-        connectionString: "postgres://postgres:postgres@localhost:5432/fergalicci"
+    const pool = new pg.Pool({
+        connectionString: "postgres://postgres:12345@localhost:5432/fergalicci"
     });
     global.connection = pool;
 
