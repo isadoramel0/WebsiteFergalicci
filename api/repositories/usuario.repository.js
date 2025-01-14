@@ -22,4 +22,25 @@ async function createUsuario(userData) {
 
 }
 
-export default { createUsuario }
+async function existsEmail(email) {
+    const connection = await database.connect()
+    let resultRows = null;
+    const query = 'SELECT EXISTS (SELECT email FROM "Usuario" WHERE email=$1 limit 1)';
+
+        try {
+            // Tenta fazer a query no banco de dados;
+            const queryResult = await connection.query(query,
+                [email]);
+            resultRows = queryResult.rows[0];
+        } catch (error) {
+            // Em caso de erro, imprime no console o traceback e onde no código ocorreu o erro;
+            console.log(error);
+            console.error("Erro ao consultar email no banco de dados");
+        } finally {
+            connection.release();
+        }
+    
+        return resultRows.exists;
+}
+
+export default { createUsuario, existsEmail}

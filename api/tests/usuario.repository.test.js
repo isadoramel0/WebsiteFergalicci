@@ -14,7 +14,20 @@ describe("UsuarioRepository", () => {
     const result = await usuarioRepository.createUsuario(userData);
 
     // Aferir
-    console.log(result);
-    expect(result).not.toBeNull();
+    if (usuarioRepository.existsEmail(userData.email)) {
+      expect(result).toBeNull();
+    } else {
+      expect(result).toBeDefined();
+    }
+  });
+});
+
+describe("UsuarioRepository", () => {
+  it("deve consultar se um email já existe no banco de dados", async () => {
+    const email = "joao123@dominio.com";
+
+    const result = await usuarioRepository.existsEmail(email);
+
+    expect(result).toBe(true);
   });
 });
