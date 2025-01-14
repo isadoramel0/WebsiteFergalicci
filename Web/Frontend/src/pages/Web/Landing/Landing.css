@@ -120,3 +120,12 @@
 .footer p {
     font-size: 20px;
 }
+
+.carrossel {
+    overflow: hidden;
+    margin: 2rem 0;
+}
+  
+.carrossel-inner {
+    display: flex;
+}
