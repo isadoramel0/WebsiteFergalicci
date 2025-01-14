@@ -91,8 +91,8 @@ function Landing() {
       </div>
 
       <div className="entrar">
-        <Link to="/cadastro">Faça seu cadastro</Link>
-        <Link to="/login">Fazer Login</Link>
+        <Link className='link' to="/cadastro">Faça seu cadastro</Link>
+        <Link className='link' to="/login">Fazer Login</Link>
       </div>
 
       <div className="espacamento"></div>
