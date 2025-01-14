@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Marmelad&family=Montserrat&display=swap');
+
+.navbar {
+    background-color: var(--preto);
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar img:last-child {
+    margin-right: 3rem;
+}
+
+.navbar img:first-child {
+    margin-left: 3rem;
+}
+
+.intro {
+    background-color: var(--preto);
+    color: var(--branco);
+    display: flex;
+    justify-content: space-between;
+}
+
+.intro .textos {
+    margin-top: 5rem;
+    margin-left: 5rem;
+}
+
+.intro .textos h1 {
+    font-weight: 400;
+    font-size: 130px;
+    font-family: 'Marmelad';
+}
+
+.intro .textos p {
+    font-weight: 400;
+    font-size: 30px;
+}
+
+.intro .imagem {
+    height: 520px;
+    margin-top: 1.3rem;
+}
+
+.intro .imagem .circulo img {
+    width: 38rem;
+}
+
+.pre-blog {
+    background-color: var(--branco);
+    color: var(--preto);
+    padding: 8rem 2rem;
+    padding-top: 15rem;
+}
+
+.pre-blog h4 {
+    font-size: 35px;
+    font-weight: 400;
+    margin-left: 0.7rem;
+    margin-bottom: 2rem;
+}
+
+.pre-blog .carrossel {
+    display: flex;
+}
+
+.pre-blog .carrossel .post {
+    background-color: var(--preto);
+    color: var(--branco);
+    margin: 0 1rem;
+    padding: 2.3rem;
+}
+
+.pre-blog .carrossel .post img {
+    height: 35rem;
+}
+
+.pre-blog .carrossel .post .titulo {
+    margin-top: 1rem;
+    font-size: 36px;
+}
+
+.pre-blog .carrossel .post .descricao {
+    font-size: 24px;
+}
+
+.entrar {
+    background-color: var(--preto);
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 5rem;
+}
+
+.entrar a {
+    color: var(--branco);
+    font-size: 40px;
+}
+
+.espacamento {
+    background-color: var(--branco);
+    padding: 2rem;
+}
+
+.footer {
+    background-color: var(--preto);
+    color: var(--branco);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 3rem;
+}
+
+.footer .logos img:last-child {
+    margin-left: 2rem;
+}
+
+.footer p {
+    font-size: 20px;
+}
