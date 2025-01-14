@@ -1,0 +1,117 @@
+.cadastro {
+    background-color: var(--vinho);
+    background-image: url('imgs/textura_pelos.png');
+    background-size: cover;
+    background-blend-mode: multiply;
+    opacity: 0.93; 
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cadastro .forms {
+    background-color: var(--branco);
+    padding: 7rem 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 50vh;
+    color: var(--preto);
+}
+
+.intro-cadastro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.intro-cadastro p {
+    font-size: 32px;
+    font-family: 'Lora';
+    margin-top: 2rem;
+}
+
+.campos {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem; 
+}
+
+.campos .modal-input {
+    border: solid 1px var(--preto);
+    width: 100%;
+    height: 2.5rem;
+    display: flex;
+}
+
+.campos .modal-input input {
+    width: 100%;
+    background-color: var(--branco);
+    color: var(--preto);
+}
+
+.btn-cadastro {
+    margin-top: 2rem;
+    font-family: 'Lora';
+    background-color: var(--rosa);
+    padding: 0.5rem 1rem;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+@media (max-width: 700px) {
+    .cadastro .forms {
+        padding: 5rem 2rem;
+    }
+
+    .campos {
+        margin-top: 2rem; 
+    }
+
+    .campos .modal-input {
+        height: 2rem;
+    }
+
+    .logo-cadastro {
+        width: 300px;
+    }
+
+    .intro-cadastro p {
+        font-size: 25px;
+    }
+
+    .btn-cadastro {
+        margin-top: 1.7rem;
+        font-size: 16px;
+    }
+    
+    .cadastro .forms a {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 400px) {
+    .cadastro .forms-cadastro {
+        padding: 5rem 1.2rem;
+    }
+
+    .intro-cadastro p {
+        font-size: 20px;
+    }
+
+    .campos .modal-input {
+        height: 1.8rem;
+    }
+
+    .logo-cadastro {
+        width: 230px;
+    }
+
+    .btn-cadastro {
+        padding: 0.3rem 1.2rem;
+    }
+}
