@@ -13,3 +13,5 @@ app.listen(3000, () => {
 });
 
 app.use("/usuarios", usuarioRoutes);
+
+export default app;
