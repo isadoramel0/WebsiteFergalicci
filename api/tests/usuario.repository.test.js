@@ -14,11 +14,14 @@ describe("UsuarioRepository", () => {
     const result = await usuarioRepository.createUsuario(userData);
 
     // Aferir
-    if (usuarioRepository.existsEmail(userData.email)) {
-      expect(result).toBeNull();
-    } else {
-      expect(result).toBeDefined();
-    }
+
+    expect(result).toStrictEqual([
+      {
+        email: "joao123@dominio.com",
+        nomeUsuario: "João Krasinski",
+      },
+    ]);
+
   });
 });
 
