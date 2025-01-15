@@ -10,6 +10,8 @@ async function createUsuario(userData) {
             const queryResult = await connection.query(query,
                 [userData.nomeUsuario, userData.email, userData.senha]);
             resultRows = queryResult.rows;
+            delete resultRows[0].senha;
+            delete resultRows[0].idUsuario;
         } catch (error) {
             // Em caso de erro, imprime no console o traceback e onde no código ocorreu o erro;
             console.log(error);
@@ -17,7 +19,7 @@ async function createUsuario(userData) {
         } finally {
             connection.release();
         }
-    
+
         return resultRows;
 
 }
