@@ -67,4 +67,79 @@ describe('UsuarioController', () => {
     expect(response.body.erros).toContain('A senha deve conter ao menos um número');
   });
 
+  it('deve fazer login com sucesso quando as credenciais estão corretas', async () => {
+    const usuario = {
+      email: 'ma@dominio.com',
+      senha: 'senhaBoa0'
+    };
+
+    // Primeiro, cria o usuário para garantir que ele existe no banco de dados
+    await request(app)
+      .post('/usuarios/cadastrar')
+      .send({
+        nomeUsuario: 'Mariana Maria',
+        email: 'ma@dominio.com',
+        senha: 'senhaBoa0',
+        confirmacaoSenha: 'senhaBoa0'
+      });
+
+    // Em seguida, tenta fazer login com as credenciais corretas
+    const response = await request(app)
+      .post('/usuarios/login')
+      .send(usuario);
+
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty('token');
+  });
+
+  it('deve impedir o login pois a senha está incorreta', async () => {
+    const usuario = {
+      email: 'ma@dominio.com',
+      senha: 'senhaRuim0'
+    };
+
+    // Primeiro, cria o usuário para garantir que ele existe no banco de dados
+    await request(app)
+      .post('/usuarios/cadastrar')
+      .send({
+        nomeUsuario: 'Mariana Maria',
+        email: 'ma@dominio.com',
+        senha: 'senhaBoa0',
+        confirmacaoSenha: 'senhaBoa0'
+      });
+
+    // Em seguida, tenta fazer login com as credenciais corretas
+    const response = await request(app)
+      .post('/usuarios/login')
+      .send(usuario);
+
+    expect(response.status).toBe(401);
+    expect(response.body.erro).toContain("Usuário ou senha estão incorretos!");
+  });
+
+  it('deve impedir o login pois o email está incorreto', async () => {
+    const usuario = {
+      email: 'ma@dominio.me',
+      senha: 'senhaBoa0'
+    };
+
+    // Primeiro, cria o usuário para garantir que ele existe no banco de dados
+    await request(app)
+      .post('/usuarios/cadastrar')
+      .send({
+        nomeUsuario: 'Mariana Maria',
+        email: 'ma@dominio.com',
+        senha: 'senhaBoa0',
+        confirmacaoSenha: 'senhaBoa0'
+      });
+
+    // Em seguida, tenta fazer login com as credenciais corretas
+    const response = await request(app)
+      .post('/usuarios/login')
+      .send(usuario);
+
+    expect(response.status).toBe(401);
+    expect(response.body.erro).toContain("Usuário ou senha estão incorretos!");
+  });
+
 });
