@@ -33,7 +33,7 @@ async function readProdutos() {
     resultRows = queryResult.rows;
   } catch (error){
     console.log(error);
-    console.error("Erro ao consultar um produto no banco de dados");
+    console.error("Erro ao consultar os produtos no banco de dados");
   } finally {
     connection.release()
   }
