@@ -10,6 +10,14 @@ const Login = () => {
 
   const handleLogin = async (event) => {
     event.preventDefault();
+    console.log("Tentando login...");
+
+    const loginData = {
+      email: event.target.email.value,
+      senha: event.target.password.value,
+    };
+
+    console.log("Dados do formulário:", loginData);
 
     try {
       const response = await fetch("http://localhost:3000/usuarios/login", {
@@ -17,7 +25,7 @@ const Login = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, senha: password }),
+        body: JSON.stringify(loginData),
       });
 
       const data = await response.json();
