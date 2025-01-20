@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import App from './App.jsx';
-import Landing from './pages/Web/Landing/Landing.jsx'; 
-import Cadastro from './pages/Cadastro/Cadastro.jsx';
-import Login from './pages/Login/Login.jsx';
+import Landing from './view/Web/Landing/Landing.jsx'; 
+import Cadastro from './view/Cadastro/Cadastro.jsx';
+import Login from './view/Login/Login.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
