@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import "./Login.css";
 
 const Login = () => {
@@ -50,7 +51,7 @@ const Login = () => {
     <div className="login">
       <form className="forms-login" onSubmit={handleLogin}>
         <div className="intro-login">
-          <img className="logo-login" src="imgs/Fergalicci-preto.png" alt="Fergalicci" />
+          <Link to='/'><img className="logo-login" src="imgs/Fergalicci-preto.png" alt="Fergalicci" /></Link>
         </div>
 
         <div className="campos-login">
