@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
 import usuarioRepository from "../repositories/usuario.repository.js";
+import produtoRepository from "../repositories/produto.repository.js";
 
 describe("UsuarioRepository", () => {
   it("deve criar um usuário no banco de dados", async () => {
@@ -32,5 +33,14 @@ describe("UsuarioRepository", () => {
     const result = await usuarioRepository.existsEmail(email);
 
     expect(result).toBe(true);
+  });
+});
+
+describe("ProdutoRepository", () => {
+  it("deve consultar todos os produtos no banco de dados", async () => {
+    const result = await produtoRepository.readProdutos();
+
+    expect(result.length).toBeGreaterThan(0);
+    console.log(result)
   });
 });

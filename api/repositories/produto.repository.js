@@ -22,4 +22,23 @@ async function createProduto(novoproduto) {
   return resultRows
 }
 
-export default { createProduto };
+async function readProdutos() {
+  const connection = await database.connect();
+  let resultRows = null
+  
+  const query = 'SELECT * FROM "Produto"';
+  
+  try {
+    const queryResult = await connection.query(query);
+    resultRows = queryResult.rows;
+  } catch (error){
+    console.log(error);
+    console.error("Erro ao consultar um produto no banco de dados");
+  } finally {
+    connection.release()
+  }
+
+  return resultRows
+}
+
+export default { createProduto, readProdutos };
