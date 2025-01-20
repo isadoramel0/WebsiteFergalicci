@@ -8,15 +8,20 @@ function generateAccessToken(email) {
 }
 
 function authenticateAccessToken(req, res, next) {
-    const token = req.body.token;
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
 
-    if (token === null) return res.sendStatus(401).error({erro: "Token não informado"});
+  if (token === null || token === undefined)
+    return res.status(401).json({ erro: "Token não informado" });
 
-    jwt.verify(token, process.env.TOKEN_SECRET, (err, email) => {
-        if (err) return res.sendStatus(403).error({erro: "Token inválido"});
-        req.email = email;
-        next();
-    });
+  jwt.verify(token, process.env.TOKEN_SECRET, (err, decode) => {
+    if (err) {
+      return res.status(403).json({ erro: "Token inválido" });
+    } else {
+      req.decode = decode;
+      return next();
+    }
+  });
 }
 
-export default { generateAccessToken, authenticateAccessToken};
+export default { generateAccessToken, authenticateAccessToken };
