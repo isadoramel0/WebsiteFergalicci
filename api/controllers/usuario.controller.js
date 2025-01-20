@@ -52,7 +52,7 @@ async function loginUsuario(req, res){
     const dados = await usuarioRepository.loginUsuario(usuario);
 
     if ((dados === null) || (usuario.senha !== dados.senha)){
-        return res.status(401).json({erro: "Usuário ou senha estão incorretos!"});
+        return res.status(401).json({erro: "E-mail ou senha incorretos.  Verifique e tente novamente."});
     }
 
     // Se os dados coincidem, gera um JWT e retorna
