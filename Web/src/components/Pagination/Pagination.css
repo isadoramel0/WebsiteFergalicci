@@ -37,12 +37,13 @@
     background-color: var(--rosa);
 }
 
-@media screen and (max-width: 426px) {
-    .pagination .page-item a {
-        font-size: 14px;
+@media screen and (max-width: 500px) {
+    .pagination-wrapper {
+        justify-content: center;
     }
 
-    .pagination .page-item {
-        padding: 15px;
+    .pagination .page-item a {
+        font-size: 14px;
+        padding: 0.3rem 0.8rem;
     }
 }

@@ -138,3 +138,93 @@
     width: 25px;
     margin-left: 1rem;
 }
+
+@media (max-width: 1200px) {
+    .container-tabela {
+        width: 90%;
+    }
+
+    .container-tabela .extras-tabela .busca .buscar {
+        font-size: 20px;
+    }
+
+    .container-tabela .extras-tabela .btn-add-produto {
+        font-size: 20px;
+    }
+
+    .container-tabela .div-tabela .tabela thead tr {
+        font-size: 28px;
+    }
+
+    .container-tabela .div-tabela .tabela .corpo-tabela tr td .nome-produto {
+        font-size: 24px;
+    }
+
+    .container-tabela .div-tabela .tabela .corpo-tabela tr td .botoes button {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container-tabela {
+        width: 95%;
+    }
+
+    .container-tabela .extras-tabela {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .container-tabela .extras-tabela .busca {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .container-tabela .extras-tabela .btn-add-produto {
+        width: 100%;
+        text-align: center;
+    }
+
+    .container-tabela .div-tabela .tabela thead tr {
+        font-size: 24px;
+    }
+
+    .container-tabela .div-tabela .tabela .corpo-tabela tr td .nome-produto {
+        font-size: 20px;
+    }
+
+    .container-tabela .div-tabela .tabela .corpo-tabela tr td .botoes button {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 600px) {
+    .titulo-produtos h1 {
+        font-size: 25px;
+    }
+
+    .container-tabela .extras-tabela .busca .buscar {
+        font-size: 15px;
+    }
+
+    .container-tabela .extras-tabela .btn-add-produto {
+        font-size: 15px;
+    }
+
+    .container-tabela .div-tabela .tabela thead tr {
+        font-size: 18px;
+    }
+
+    .container-tabela .div-tabela .tabela .corpo-tabela tr td .nome-produto {
+        font-size: 13px;
+    }
+
+    .container-tabela .div-tabela .tabela .corpo-tabela tr td .botoes button {
+        font-size: 14px;
+    }
+
+    .container-tabela .div-tabela .tabela .corpo-tabela tr td .botoes button .icones {
+        width: 16px;
+        margin-left: 0.1rem;
+    }
+}
