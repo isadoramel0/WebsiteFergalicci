@@ -20,7 +20,15 @@ const ExibirProdutos = () => {
   useEffect(() => {
     const fetchProdutos = async () => {
       try {
-        const response = await fetch('http://localhost:3000/produtos');
+        const token = localStorage.getItem('token');
+        const response = await fetch(`http://localhost:3000/produtos?page=${paginaAtual}&limit=${produtosPorPagina}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const data = await response.json();
         setProdutos(data.produtos);
       } catch (error) {
@@ -29,7 +37,7 @@ const ExibirProdutos = () => {
     };
 
     fetchProdutos();
-  }, []);
+  }, [paginaAtual]);
 
   const handleEdit = (produtoId) => {
     navigate(`/admin/produtos/editar/${produtoId}`);
@@ -42,8 +50,12 @@ const ExibirProdutos = () => {
 
   const confirmDelete = async () => {
     try {
+      const token = localStorage.getItem('token');
       await fetch(`http://localhost:3000/produtos/${produtoToDelete}`, {
         method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
       });
       setProdutos(produtos.filter(produto => produto.id !== produtoToDelete));
       setShowPopUpExcluir(false);
