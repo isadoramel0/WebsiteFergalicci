@@ -6,5 +6,6 @@ import upload from "../util/fileHandler.js";
 const router = express.Router();
 
 router.post("", token.authenticateAccessToken, upload.single("foto_produto"), produtoController.createProduto);
+router.get("", token.authenticateAccessToken, produtoController.readProdutos);
 
 export default router;
