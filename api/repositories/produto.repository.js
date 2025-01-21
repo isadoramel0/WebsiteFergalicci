@@ -22,14 +22,14 @@ async function createProduto(novoproduto) {
   return resultRows
 }
 
-async function readProdutos() {
+async function readProdutos(limite, offset) {
   const connection = await database.connect();
   let resultRows = null
   
-  const query = 'SELECT * FROM "Produto"';
+  const query = 'SELECT * FROM "Produto" LIMIT $1 OFFSET $2';
   
   try {
-    const queryResult = await connection.query(query);
+    const queryResult = await connection.query(query, [limite, offset]);
     resultRows = queryResult.rows;
   } catch (error){
     console.log(error);

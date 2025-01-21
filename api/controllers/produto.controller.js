@@ -31,13 +31,23 @@ async function createProduto(req, res) {
 }
 
 async function readProdutos(req, res) {
-  const produtos = await produtoRepository.readProdutos();
 
-  if (produtos) {
+  // Na requisição, a URL se parece com:
+  // /produtos?pagina=1&limite=10
+
+  const pagina = parseInt(req.query.pagina) || 1;
+  const limite = parseInt(req.query.limite) || 5;
+  const offset = (pagina - 1) * limite;
+
+  const produtos = await produtoRepository.readProdutos(limite, offset);
+
+  if (!produtos){
+    return res.status(400).json({erro: "Não foi possível consultar os produtos no banco de dados"})
+  } else if (produtos.length >= 1) {
     return res.status(200).json({ produtos });
   } else {
-    return res.status(400).json({erro: "Não foi possível consultar os produtos no banco de dados"})
+    return res.status(200).json({mensagem: "Nenhum produto cadastrado"})
   }
 }
 
-export default { createProduto };
+export default { createProduto, readProdutos };
