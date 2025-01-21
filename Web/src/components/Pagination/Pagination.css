@@ -1,0 +1,48 @@
+.pagination-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: auto; 
+    margin-top: 2rem;
+}
+
+.pagination {
+    display: flex;
+    user-select: none;
+}
+
+.pagination .page-item {
+    list-style-type: none;
+}
+
+.pagination .page-item a {
+    color: var(--preto);
+    background-color: var(--rosa);
+    text-decoration: none;
+    font-size: 25px;
+    padding: 0.8rem 2rem;
+    border-left: solid 1px var(--preto);
+    font-family: 'Lora';
+}
+
+.pagination .page-item:first-child a {
+    border-left: none; 
+}
+
+.pagination .page-item.disabled a {
+    pointer-events: none;
+}
+
+.pagination .page-item.active a {
+    color: var(--cor-clara);
+    background-color: var(--rosa);
+}
+
+@media screen and (max-width: 426px) {
+    .pagination .page-item a {
+        font-size: 14px;
+    }
+
+    .pagination .page-item {
+        padding: 15px;
+    }
+}
