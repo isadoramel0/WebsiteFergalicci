@@ -71,7 +71,7 @@ const ExibirProdutos = () => {
   };
 
   const filteredProdutos = produtos.filter((produto) =>
-    produto.nome.toLowerCase().includes(searchTerm.toLowerCase())
+    produto.nomeProd && produto.nomeProd.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const indexOfLastProduto = paginaAtual * produtosPorPagina;
@@ -117,10 +117,10 @@ const ExibirProdutos = () => {
                   </tr>
                 </thead>
                 <tbody className='corpo-tabela'>
-                  {currentFilteredProdutos.map(produto => (
-                    <tr key={produto.id}>
+                  {currentFilteredProdutos.map((produto, index) => (
+                    <tr key={produto.id || index}>
                       <td>
-                        <p className="nome-produto">{produto.nome}</p>
+                        <p className="nome-produto">{produto.nomeProd}</p>
                         <div className="botoes">
                           <button onClick={() => handleEdit(produto.id)} className='btn-editar'>Editar
                             <img className='icones' src={iconeLapis} alt="Icone Lápis" />
