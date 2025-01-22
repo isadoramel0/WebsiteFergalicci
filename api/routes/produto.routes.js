@@ -7,5 +7,7 @@ const router = express.Router();
 
 router.post("", token.authenticateAccessToken, upload.single("foto_produto"), produtoController.createProduto);
 router.get("", token.authenticateAccessToken, produtoController.readProdutos);
+router.get("/:id", token.authenticateAccessToken, produtoController.readProduto);
+router.put("/:id", token.authenticateAccessToken, upload.single("foto_produto"), produtoController.updateProduto);
 
 export default router;
