@@ -21,7 +21,7 @@ const ExibirProdutos = () => {
     const fetchProdutos = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch(`http://localhost:3000/produtos?page=${paginaAtual}&limit=${produtosPorPagina}`, {
+        const response = await fetch(`http://localhost:3000/produtos`, {
           headers: {
             'Authorization': `Bearer ${token}`,
           },
