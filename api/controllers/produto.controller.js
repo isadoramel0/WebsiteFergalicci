@@ -1,5 +1,5 @@
 import upload from "../util/fileHandler.js";
-import produtoRepository from "../repositories/produto.repository.js";
+import produtoServices from "../services/produto.services.js";
 
 async function createProduto(req, res) {
   upload.single("foto_produto");
@@ -31,15 +31,7 @@ async function createProduto(req, res) {
 }
 
 async function readProdutos(req, res) {
-
-  // Na requisição, a URL se parece com:
-  // /produtos?pagina=1&limite=10
-
-  const pagina = parseInt(req.query.pagina) || 1;
-  const limite = parseInt(req.query.limite) || 5;
-  const offset = (pagina - 1) * limite;
-
-  const produtos = await produtoRepository.readProdutos(limite, offset);
+  const produtos = await produtoServices.readProdutos();
 
   if (!produtos){
     return res.status(400).json({erro: "Não foi possível consultar os produtos no banco de dados"})
