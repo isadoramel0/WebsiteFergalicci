@@ -4,4 +4,8 @@ async function readProduto(id) {
   return await produtoRepository.readProduto(id);
 }
 
-export default { readProduto };
+async function updateProduto(produto) {
+  return await produtoRepository.updateProduto(produto);
+}
+
+export default { readProduto, updateProduto };

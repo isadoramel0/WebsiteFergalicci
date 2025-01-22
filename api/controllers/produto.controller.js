@@ -1,19 +1,21 @@
-import upload from "../util/fileHandler.js";
 import produtoRepository from "../repositories/produto.repository.js";
 import produtoServices from "../services/produto.services.js";
+import { apagarArquivo } from "../util/fileDeleter.js";
 
 async function createProduto(req, res) {
-  upload.single("foto_produto");
-
+  let filename = null;
+  if (req.file) {
+    filename = req.file.filename;
+  }
   const novoProduto = {
     nome: req.body.nome,
-    arquivo: req.body.filename,
+    arquivo: filename,
   };
 
   // Validação de dados
 
   if (!novoProduto.nome || !novoProduto.arquivo) {
-    res
+    return res
       .status(400)
       .json({ erro: "Falha ao cadastrar produto, confira os campos" });
   }
@@ -66,6 +68,53 @@ async function readProduto(req, res) {
   }
 }
 
-async function updateProduto(req, res) {}
+async function updateProduto(req, res) {
+  let filename = null;
+  if (req.file) {
+    filename = req.file.filename;
+  }
+  const modificacoes = {
+    idProduto: req.params.id,
+    nome: req.body.nome,
+    arquivo: filename,
+  };
 
-export default { createProduto, readProdutos, updateProduto, readProduto };
+  if (!modificacoes) {
+    return res.status(400).json({ erro: "Produto não informado" });
+  } else {
+    if (!modificacoes.idProduto) {
+      return res.status(400).json({ erro: "ID do produto não informado" });
+    }
+  }
+
+  // Consulta se o produto existe da base de dados
+  const produtoAntigo = await produtoServices.readProduto(
+    modificacoes.idProduto
+  );
+
+  if (!produtoAntigo) {
+    return res
+      .status(400)
+      .json({ erro: "Produto não encontrado na base de dados" });
+  } else {
+    const modificado = {
+      idProduto: modificacoes.idProduto,
+      nome: modificacoes.nome || produtoAntigo.nomeProd,
+      arquivo: modificacoes.arquivo || produtoAntigo.caminhoImg,
+    };
+
+    // Requisitar update no banco de dados
+    const dados = await produtoServices.updateProduto(modificado);
+
+    // Apagar imagem anterior, caso seja substituída
+    if (req.file) {
+      await apagarArquivo(produtoAntigo.caminhoImg);
+    }
+
+    return res
+      .status(201)
+      .json({ mensagem: "Produto editado com sucesso", produto: dados });
+  }
+}
+
+export default { createProduto, readProdutos, readProduto, updateProduto };

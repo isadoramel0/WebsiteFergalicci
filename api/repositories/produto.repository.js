@@ -58,4 +58,27 @@ async function readProduto(id) {
   return resultRow;
 }
 
-export default { createProduto, readProdutos, readProduto };
+async function updateProduto(produto){
+  const connection = await database.connect();
+  let resultRows = null;
+  const query =
+    'UPDATE "Produto" SET "nomeProd" = $1, "caminhoImg" = $2 WHERE "idProduto" = $3 RETURNING *';
+
+  try {
+    const queryResult = await connection.query(query, [
+      produto.nome,
+      produto.arquivo,
+      produto.idProduto
+    ]);
+    resultRows = queryResult.rows[0];
+  } catch (error) {
+    console.log(error);
+    console.error("Erro ao modificar um produto no banco de dados");
+  } finally {
+    connection.release();
+  }
+
+  return resultRows;
+}
+
+export default { createProduto, readProdutos, readProduto, updateProduto };
