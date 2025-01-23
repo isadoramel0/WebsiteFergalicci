@@ -7,7 +7,7 @@ async function createProduto(req, res) {
     filename = req.file.filename;
   }
   const novoProduto = {
-    nome: req.body.nome,
+    nome: req.body.nomeProd,
     arquivo: filename,
   };
 
