@@ -1,4 +1,3 @@
-import produtoRepository from "../repositories/produto.repository.js";
 import produtoServices from "../services/produto.services.js";
 import { apagarArquivo } from "../util/fileDeleter.js";
 
@@ -20,7 +19,7 @@ async function createProduto(req, res) {
       .json({ erro: "Falha ao cadastrar produto, confira os campos" });
   }
 
-  const produto = await produtoRepository.createProduto(novoProduto);
+  const produto = await produtoServices.createProduto(novoProduto);
 
   if (produto) {
     res
