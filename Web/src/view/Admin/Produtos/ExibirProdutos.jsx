@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './ExibirProdutos.css';
 import { Link, useNavigate } from 'react-router-dom';
 import Pagination from '../../../components/Pagination/Pagination.jsx';
-import PopUpExcluir from './PopUpExcluir.jsx';
+import PopUpExcluir from '../../../components/PopUpExcluir/PopUpExcluir.jsx';
 import logo from '../../../../public/imgs/Fergalicci-preto.png';  
 import lupa from '../../../../public/imgs/Lupa.png';
 import iconeLapis from '../../../../public/imgs/IconeLápis.png';

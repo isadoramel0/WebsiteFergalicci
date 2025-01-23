@@ -16,6 +16,10 @@ const CadastrarProduto = () => {
     formData.append('nomeProd', nome);
     formData.append('caminhoImg', imagem);
 
+    console.log('Dados enviados para o backend:');
+    console.log('Nome do Produto:', nome);
+    console.log('Imagem:', imagem);
+
     try {
       const token = localStorage.getItem('token');
       const response = await fetch('http://localhost:3000/produtos', {
@@ -94,12 +98,6 @@ const CadastrarProduto = () => {
       {showSuccessPopup && (
         <div className="popup-success">
           <p>Realizou o cadastro com sucesso!</p>
-        </div>
-      )}
-
-      {errorMessage && (
-        <div className="popup-error">
-          <p>{errorMessage}</p>
         </div>
       )}
     </div>

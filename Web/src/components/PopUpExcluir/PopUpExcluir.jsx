@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../../../components/PopUpExcluir/PopUpExcluir.css';
+import './PopUpExcluir.css';
 
 const PopUpExcluir = ({ show, onClose, onConfirm }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -20,9 +20,9 @@ const PopUpExcluir = ({ show, onClose, onConfirm }) => {
   return (
     <div className="engloba-caixa-alerta">
       <div className="caixa-alerta">
-        <div className="caixa-elementos">
-          <img src="img/CaixaAlerta/icone_aviso.png" alt="Icon" />
-          <p>Você tem certeza que deseja excluir esse produto?</p>
+        
+          <div className="atencao">Atenção</div>
+          <p className='text-alert'>Deseja mesmo excluir este item?</p>
           {isLoading && (
             <div className="loader"></div>
           )}
@@ -32,17 +32,17 @@ const PopUpExcluir = ({ show, onClose, onConfirm }) => {
                 id="btn-form-cancelar-caixa"
                 onClick={onClose}
               >
-                Cancelar
+                Não
               </button>
               <button
                 id="btn-salvar-visualizar-caixa"
                 onClick={handleConfirm}
               >
-                Excluir
+                Sim
               </button>
             </div>
           )}
-        </div>
+        
       </div>
     </div>
   );
