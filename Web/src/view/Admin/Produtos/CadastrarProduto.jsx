@@ -14,7 +14,7 @@ const CadastrarProduto = () => {
 
     const formData = new FormData();
     formData.append('nomeProd', nome);
-    formData.append('caminhoImg', imagem);
+    formData.append('foto_produto', imagem);
 
     console.log('Dados enviados para o backend:');
     console.log('Nome do Produto:', nome);
@@ -60,7 +60,7 @@ const CadastrarProduto = () => {
       </div>
 
       <div className="inputs-cadastro">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} encType='multipart/form-data'>
           <div className="form-cadastro">
             <div className="input-nome">
               <label htmlFor="nome">Nome</label>
@@ -75,13 +75,13 @@ const CadastrarProduto = () => {
               />
             </div>
             <div className="input-img">
-              <label htmlFor="img">Imagem</label>
+              <label htmlFor="imagem_produto">Imagem</label>
               <label className='btn-img-label' htmlFor="img">Realizar upload de imagem</label>
               <input
                 className='btn-img'
                 type="file"
                 id="img"
-                name="img"
+                name="foto_produto"
                 onChange={(e) => setImagem(e.target.files[0])}
                 required
               />
