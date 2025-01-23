@@ -10,7 +10,7 @@ async function connect() {
 
     // Caso contrário, crie e retorne uma nova conexão
     const pool = new pg.Pool({
-        connectionString: "postgres://postgres:aninhaCN.04@localhost:5432/fergalicci"
+        connectionString: "postgres://postgres:12345@localhost:5432/fergalicci"
     });
     global.connection = pool;
 
