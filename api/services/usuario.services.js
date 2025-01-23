@@ -14,7 +14,7 @@ async function createUsuario(novoUsuario) {
 }
 
 async function loginUsuario(usuario) {
-  await usuarioRepository.loginUsuario(usuario);
+  return await usuarioRepository.loginUsuario(usuario);
 }
 
 export default { createUsuario, loginUsuario };
