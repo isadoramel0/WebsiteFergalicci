@@ -1,0 +1,132 @@
+.admin-inicio {
+    background-color: var(--branco);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
+
+.nav-admin {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 0;
+    width: 100%;
+    border-bottom: solid 1px;
+}
+
+.nav-admin .logo-admin {
+    width: 300px;
+}
+
+.nav-admin h3 {
+    margin-left: 3rem;
+    font-size: 24px;
+    font-family: 'Lora';
+    color: var(--preto);
+    font-weight: 200;
+}
+
+.admin-inicio .central-admin {
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.admin-inicio .central-admin h1 {
+    font-family: 'Lora';
+    font-size: 40px;
+    font-weight: 200;
+    margin-bottom: 3rem;
+}
+
+.admin-inicio .central-admin .escolha-admin {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-inicio .central-admin .escolha-admin .link-admin .bloco.produtos {
+    margin-left: 10rem;
+}
+
+.admin-inicio .central-admin .escolha-admin .link-admin .bloco {
+    background-color: var(--vinho);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.admin-inicio .central-admin .escolha-admin .link-admin .bloco img {
+    width: 100%;
+    height: 30rem;
+}
+
+.admin-inicio .central-admin .escolha-admin .link-admin .bloco p {
+    color: var(--branco);
+    font-family: 'Lora';
+    font-weight: 200;
+    font-size: 32px;
+    padding: 1.2rem;
+}
+
+.admin-inicio .central-admin .escolha-admin .link-admin {
+    text-decoration: none;
+}
+
+@media (max-width: 850px) {
+    .nav-admin h3 {
+        margin-left: 2.5rem;
+        font-size: 20px;
+    }
+
+    .nav-admin .logo-admin {
+        width: 250px;
+    }
+
+    .admin-inicio .central-admin h1 {
+        font-size: 30px;
+    }
+
+    .admin-inicio .central-admin .escolha-admin .link-admin .bloco img {
+        height: 15rem;
+    }
+
+    .admin-inicio .central-admin .escolha-admin .link-admin .bloco.produtos {
+        margin-left: 5rem;
+    }
+
+    .admin-inicio .central-admin .escolha-admin .link-admin .bloco p {
+        font-size: 25px;
+        padding: 0.8rem;
+    }
+}
+
+@media (max-width: 450px) {
+    .nav-admin h3 {
+        margin-left: 1.5rem;
+        font-size: 15px;
+    }
+
+    .nav-admin .logo-admin {
+        width: 180px;
+    }
+
+    .admin-inicio .central-admin h1 {
+        font-size: 23px;
+    }
+
+    .admin-inicio .central-admin .escolha-admin .link-admin .bloco img {
+        height: 10.5rem;
+    }
+
+    .admin-inicio .central-admin .escolha-admin .link-admin .bloco.produtos {
+        margin-left: 1.7rem;
+    }
+
+    .admin-inicio .central-admin .escolha-admin .link-admin .bloco p {
+        font-size: 15px;
+    }
+}

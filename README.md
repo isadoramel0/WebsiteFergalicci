@@ -77,7 +77,6 @@ Projeto_WebsiteFergalicci/
 
 ### Branches
 
-- Utilizar as branches *"dev-back"* e *"dev-front"* para códigos de back-end e front-end, respectivamente.
 - Realizar merge das branches com a branch *"main"* apenas após a conclusão dos testes e a validação das funcionalidades.
 - Criar branches específicas para tratar correções críticas.
 - Utilizar apenas letras minúsculas para nomear branches.

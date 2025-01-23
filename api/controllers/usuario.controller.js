@@ -50,8 +50,8 @@ async function loginUsuario(req, res) {
   // Busca se o usuário existe no banco de dados
   const dados = await usuarioServices.loginUsuario(usuario);
 
-  if (dados === null || usuario.senha !== dados.senha) {
-    return res.status(401).json({ erro: "Usuário ou senha estão incorretos!" });
+  if ((dados === null) || (usuario.senha !== dados.senha)){
+      return res.status(401).json({erro: "E-mail ou senha incorretos. Verifique e tente novamente."});
   }
 
   // Se os dados coincidem, gera um JWT e retorna
