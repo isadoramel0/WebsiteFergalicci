@@ -31,6 +31,7 @@ const ExibirProdutos = () => {
         }
         const data = await response.json();
         setProdutos(data.produtos);
+        console.log(data.produtos);
       } catch (error) {
         console.error('Erro ao buscar produtos:', error);
       }

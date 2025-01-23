@@ -1,0 +1,101 @@
+* {
+    font-family: 'Lora';
+}
+
+.cadastro-produto {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--branco);
+    height: 100vh;
+    justify-content: space-between;
+}
+
+.container-cima {
+    width: 100%;
+}
+
+.inputs-cadastro {
+    width: 100%;
+}
+
+.form-cadastro {
+    width: 95%;
+    margin-left: 2rem;
+    margin-bottom: 20rem;
+}
+
+.inputs-cadastro .input-nome,
+.inputs-cadastro .input-img {
+    display: flex;
+    flex-direction: column;
+}
+
+.inputs-cadastro .input-nome input {
+    border: 1px solid var(--preto);
+    padding: 1rem 0;
+    background-color: var(--branco);
+}
+
+.inputs-cadastro .input-nome label,
+.inputs-cadastro .input-img label {
+    font-size: 32px;
+    margin-bottom: 1rem;
+}
+
+.inputs-cadastro .input-img {
+    margin-top: 3rem;
+}
+
+.inputs-cadastro .input-img .btn-img-label {
+    font-size: 23px;
+    color: var(--branco);
+    background-color: var(--rosa);
+    cursor: pointer;
+    width: 55%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    border: none;
+}
+
+.inputs-cadastro .input-img .btn-img {
+    display: none;
+}
+
+.container-baixo {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    background-color: var(--preto);
+    padding: 1rem 0;
+}
+
+.container-baixo .btn-ctr {
+    text-decoration: none;
+    color: var(--branco);
+    font-size: 30px;
+}
+
+.container-baixo .btn-ctr:first-child {
+    margin-left: 2rem;
+}
+
+.container-baixo .btn-ctr:last-child {
+    margin-right: 2rem;
+    color: var(--branco);
+    background-color: var(--preto);
+    cursor: pointer;
+}
+
+.popup-success {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: var(--verde);
+    color: var(--branco);
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
