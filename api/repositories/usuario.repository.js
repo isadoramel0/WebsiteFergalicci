@@ -52,7 +52,7 @@ async function loginUsuario(credenciais) {
   const connection = await database.connect();
   let result = null;
   const query =
-    'SELECT "idUsuario", email, senha FROM "Usuario" WHERE email=$1';
+    'SELECT "idUsuario", email, senha, admin FROM "Usuario" WHERE email=$1';
 
   try {
     // Tenta fazer a query no banco de dados;
@@ -90,7 +90,7 @@ async function updateTokenUsuario(idUsuario, token) {
 async function getTokenUsuario(idUsuario) {
   const connection = await database.connect();
   let resultRows = null;
-  const query = 'SELECT token FROM "Usuario" WHERE "idUsuario" = $1';
+  const query = 'SELECT token, admin FROM "Usuario" WHERE "idUsuario" = $1';
 
   try {
     // Tenta fazer a query no banco de dados;
@@ -103,7 +103,13 @@ async function getTokenUsuario(idUsuario) {
     connection.release();
   }
 
-  return resultRows.token;
+  return resultRows;
 }
 
-export default { createUsuario, existsEmail, loginUsuario, updateTokenUsuario, getTokenUsuario };
+export default {
+  createUsuario,
+  existsEmail,
+  loginUsuario,
+  updateTokenUsuario,
+  getTokenUsuario,
+};

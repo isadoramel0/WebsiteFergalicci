@@ -47,18 +47,22 @@ async function loginUsuario(req, res) {
   const dados = await usuarioServices.loginUsuario(usuario);
 
   if (dados === null || usuario.senha !== dados.senha) {
-    return res
-      .status(401)
-      .json({
-        erro: "E-mail ou senha incorretos. Verifique e tente novamente.",
-      });
+    return res.status(401).json({
+      erro: "E-mail ou senha incorretos. Verifique e tente novamente.",
+    });
   }
 
   // Se os dados coincidem, gera um JWT
   const jwtUsuario = await token.generateAccessToken(dados);
   await usuarioServices.updateTokenUsuario(dados.idUsuario, jwtUsuario);
 
-  return res.status(200).json({ token: jwtUsuario, idUsuario: dados.idUsuario});
+  return res
+    .status(200)
+    .json({
+      token: jwtUsuario,
+      idUsuario: dados.idUsuario,
+      admin: dados.admin,
+    });
 }
 
 export default { createUsuario, loginUsuario };
