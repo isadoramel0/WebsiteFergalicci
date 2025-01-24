@@ -44,7 +44,6 @@ async function loginUsuario(req, res) {
   };
 
   // Busca se o usuário existe no banco de dados
-  console.log(usuario);
   const dados = await usuarioServices.loginUsuario(usuario);
 
   if (dados === null || usuario.senha !== dados.senha) {
@@ -55,9 +54,11 @@ async function loginUsuario(req, res) {
       });
   }
 
-  // Se os dados coincidem, gera um JWT e retorna
+  // Se os dados coincidem, gera um JWT
   const jwtUsuario = await token.generateAccessToken(dados);
-  return res.status(200).json({ token: jwtUsuario });
+  await usuarioServices.updateTokenUsuario(dados.idUsuario, jwtUsuario);
+
+  return res.status(200).json({ token: jwtUsuario, idUsuario: dados.idUsuario});
 }
 
 export default { createUsuario, loginUsuario };

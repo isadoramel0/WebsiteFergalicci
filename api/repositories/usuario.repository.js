@@ -16,7 +16,7 @@ async function createUsuario(userData) {
     resultRows = queryResult.rows;
     delete resultRows[0].senha;
     delete resultRows[0].idUsuario;
-  /* v8 ignore next 4*/
+    /* v8 ignore next 4*/
   } catch (error) {
     // Em caso de erro, imprime no console o traceback e onde no código ocorreu o erro;
     console.log(error);
@@ -38,7 +38,7 @@ async function existsEmail(email) {
     // Tenta fazer a query no banco de dados;
     const queryResult = await connection.query(query, [email]);
     resultRows = queryResult.rows[0];
-  /* v8 ignore next 3*/
+    /* v8 ignore next 3*/
   } catch (error) {
     // Em caso de erro, imprime no console o traceback e onde no código ocorreu o erro;
     console.error("Erro ao consultar email no banco de dados");
@@ -52,15 +52,15 @@ async function existsEmail(email) {
 async function loginUsuario(credenciais) {
   const connection = await database.connect();
   let result = null;
-  const query = 'SELECT email, senha FROM "Usuario" WHERE email=$1';
+  const query =
+    'SELECT "idUsuario", email, senha FROM "Usuario" WHERE email=$1';
 
   try {
     // Tenta fazer a query no banco de dados;
     const queryResult = await connection.query(query, [credenciais.email]);
     if (queryResult.rows[0]) {
-        result = queryResult.rows[0];
+      result = queryResult.rows[0];
     }
-  /* v8 ignore next 4 */
   } catch (error) {
     // Em caso de erro, imprime no console o traceback e onde no código ocorreu o erro;
     console.log(error);
@@ -72,4 +72,20 @@ async function loginUsuario(credenciais) {
   return result;
 }
 
-export default { createUsuario, existsEmail, loginUsuario };
+async function updateTokenUsuario(idUsuario, token) {
+  const connection = await database.connect();
+  const query = 'UPDATE "Usuario" SET "token" = $1 WHERE "idUsuario" = $2';
+
+  try {
+    await connection.query(query, [token, idUsuario]);
+  } catch (error) {
+    console.log(error);
+    console.error("Erro ao modificar um produto no banco de dados");
+  } finally {
+    connection.release();
+  }
+
+  return { mensagem: "Token de usuário atualizado com sucesso" };
+}
+
+export default { createUsuario, existsEmail, loginUsuario, updateTokenUsuario };
