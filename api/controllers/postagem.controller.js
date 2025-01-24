@@ -1,5 +1,4 @@
 import { apagarArquivo } from "../util/fileDeleter.js";
-import postegemServices from "../services/postagem.services.js";
 import produtoRepository from "../repositories/produto.repository.js";
 import postagemServices from "../services/postagem.services.js";
 
@@ -38,14 +37,11 @@ async function createPostagem(req, res) {
   }
 
   // Verificar se os produtos existem no banco de dados
-  const produtosExistem = await Promise.all(
-    postagem.produtos.map(async (produtoId) => {
-      const produto = await produtoRepository.readProduto(produtoId);
-      return produto !== undefined;
-    })
+  const produtosExistem = await produtoRepository.functionAllExisting(
+    postagem.produtos
   );
 
-  if (produtosExistem.includes(false)) {
+  if (!produtosExistem) {
     if (postagem.caminhoimg) {
       apagarArquivo(postagem.caminhoimg);
     }
