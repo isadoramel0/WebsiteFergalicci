@@ -16,14 +16,20 @@ const ExibirProdutos = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [produtoToDelete, setProdutoToDelete] = useState(null);
   const [showPopUpExcluir, setShowPopUpExcluir] = useState(false);
-  const [showCadastroSuccessPopup, setShowCadastroSuccessPopup] = useState(location.state?.showSuccessPopup || false);
-  const [showEditSuccessPopup, setShowEditSuccessPopup] = useState(location.state?.showEditSuccessPopup || false);
+  const [showSuccessPopup, setShowSuccessPopup] = useState(location.state?.showSuccessPopup || false);
   const produtosPorPagina = 5;
 
   useEffect(() => {
     const fetchProdutos = async () => {
       try {
         const token = localStorage.getItem('token');
+        const idUsuario = localStorage.getItem('idUsuario');
+        const admin = localStorage.getItem('admin');
+
+        console.log('Token:', token);
+        console.log('idUsuario:', idUsuario);
+        console.log('Admin:', admin);
+        
         const response = await fetch(`http://localhost:3000/produtos`, {
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -43,13 +49,12 @@ const ExibirProdutos = () => {
     fetchProdutos();
   }, [paginaAtual]);
 
-  const handleEdit = (idProduto) => {
-    console.log("ID " + idProduto);
-    navigate(`/admin/produtos/editar/${idProduto}`);
+  const handleEdit = (produtoId) => {
+    navigate(`/admin/produtos/editar/${produtoId}`);
   };
 
-  const handleDelete = async (idProduto) => {
-    setProdutoToDelete(idProduto);
+  const handleDelete = async (produtoId) => {
+    setProdutoToDelete(produtoId);
     setShowPopUpExcluir(true);
   };
 
@@ -62,7 +67,7 @@ const ExibirProdutos = () => {
           'Authorization': `Bearer ${token}`,
         },
       });
-      setProdutos(produtos.filter(produto => produto.idProduto !== produtoToDelete));
+      setProdutos(produtos.filter(produto => produto.id !== produtoToDelete));
       setShowPopUpExcluir(false);
       setProdutoToDelete(null);
     } catch (error) {
@@ -123,14 +128,14 @@ const ExibirProdutos = () => {
                 </thead>
                 <tbody className='corpo-tabela'>
                   {currentFilteredProdutos.map((produto, index) => (
-                    <tr key={produto.idProduto || index}>
+                    <tr key={produto.id || index}>
                       <td>
                         <p className="nome-produto">{produto.nomeProd}</p>
                         <div className="botoes">
-                          <button onClick={() => handleEdit(produto.idProduto)} className='btn-editar'>Editar
+                          <button onClick={() => handleEdit(produto.id)} className='btn-editar'>Editar
                             <img className='icones' src={iconeLapis} alt="Icone Lápis" />
                           </button>
-                          <button onClick={() => handleDelete(produto.idProduto)} className="btn-excluir">Excluir
+                          <button onClick={() => handleDelete(produto.id)} className="btn-excluir">Excluir
                             <img className='icones' src={iconeLixeira} alt="Icone Lixeira" />
                           </button>
                         </div>
@@ -157,19 +162,11 @@ const ExibirProdutos = () => {
         onConfirm={confirmDelete}
       />
 
-      {showCadastroSuccessPopup && (
+      {showSuccessPopup && (
         <div className="popup-success">
           <div className="aviso">Aviso</div>
-          <p>Produto cadastrado com sucesso!</p>
-          <button onClick={() => setShowCadastroSuccessPopup(false)}>OK</button>
-        </div>
-      )}
-
-      {showEditSuccessPopup && (
-        <div className="popup-success">
-          <div className="aviso">Aviso</div>
-          <p>Produto editado com sucesso!</p>
-          <button onClick={() => setShowEditSuccessPopup(false)}>OK</button>
+          <p>Item cadastrado com sucesso!</p>
+          <button onClick={() => setShowSuccessPopup(false)}>OK</button>
         </div>
       )}
     </div>

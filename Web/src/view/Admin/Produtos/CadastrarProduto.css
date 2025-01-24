@@ -90,6 +90,12 @@
     cursor: pointer;
 }
 
+.error-message {
+    color: red;
+    font-size: 15px;
+    margin-top: 1rem;
+}
+
 @media (max-width: 1000px) {
     .form-cadastro {
         margin-bottom: 15rem;

@@ -32,11 +32,20 @@ const Login = () => {
       const data = await response.json();
 
       if (response.ok) {
-        // Armazena o token JWT no localStorage
+        // Armazena o token JWT e idUsuario no localStorage
         localStorage.setItem("token", data.token);
+        localStorage.setItem("idUsuario", data.idUsuario);
+        localStorage.setItem("admin", data.admin);
+        console.log(data.token);
+        console.log(data.idUsuario);
+        console.log(data.admin);
 
-        // Redireciona para a página principal
-        navigate("/admin");
+        // Redireciona para a página apropriada com base no status de admin
+        if (data.admin) {
+          navigate("/admin");
+        } else {
+          navigate("/blog");
+        }
       } else {
         // Exibe mensagem de erro recebida do servidor
         setError(data.erro || "Erro ao realizar login.");
