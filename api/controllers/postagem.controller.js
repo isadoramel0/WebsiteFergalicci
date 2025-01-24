@@ -1,5 +1,7 @@
 import { apagarArquivo } from "../util/fileDeleter.js";
+import postegemServices from "../services/postagem.services.js";
 import produtoRepository from "../repositories/produto.repository.js";
+import postagemServices from "../services/postagem.services.js";
 
 async function createPostagem(req, res) {
   const postagem = {
@@ -47,10 +49,21 @@ async function createPostagem(req, res) {
     if (postagem.caminhoimg) {
       apagarArquivo(postagem.caminhoimg);
     }
-    return res.status(400).json({ erros: ["Um ou mais produtos fornecidos não existem"] });
+    return res
+      .status(400)
+      .json({ erros: ["Um ou mais produtos fornecidos não existem"] });
   }
 
-  return res.send(postagem);
+  const resultado = await postagemServices.createPostagem(postagem);
+
+  if (resultado) {
+    return res.status(200).json(resultado);
+  } else {
+    if (postagem.caminhoimg) {
+      apagarArquivo(postagem.caminhoimg);
+    }
+    return res.status(500).json({ erro: "Erro ao criar a postagem" });
+  }
 }
 
 export default { createPostagem };
