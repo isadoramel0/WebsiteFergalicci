@@ -3,6 +3,9 @@ import bodyParser from "body-parser";
 import usuarioRoutes from "./routes/usuario.routes.js";
 import cors from "cors"
 import produtoRoutes from "./routes/produto.routes.js";
+import env from "dotenv";
+
+env.config()
 
 const app = express();
 

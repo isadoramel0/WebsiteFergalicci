@@ -2,10 +2,6 @@ import usuarioServices from "../services/usuario.services.js";
 import token from "../util/token.js";
 
 async function createUsuario(req, res) {
-  if (req.body === undefined) {
-    return res.status(400).json({ erro: "Requisição inválida" });
-  }
-
   const novoUsuario = {
     nomeUsuario: req.body.nomeUsuario,
     email: req.body.email,
@@ -50,8 +46,12 @@ async function loginUsuario(req, res) {
   // Busca se o usuário existe no banco de dados
   const dados = await usuarioServices.loginUsuario(usuario);
 
-  if ((dados === null) || (usuario.senha !== dados.senha)){
-      return res.status(401).json({erro: "E-mail ou senha incorretos. Verifique e tente novamente."});
+  if (dados === null || usuario.senha !== dados.senha) {
+    return res
+      .status(401)
+      .json({
+        erro: "E-mail ou senha incorretos. Verifique e tente novamente.",
+      });
   }
 
   // Se os dados coincidem, gera um JWT e retorna

@@ -16,6 +16,7 @@ async function createUsuario(userData) {
     resultRows = queryResult.rows;
     delete resultRows[0].senha;
     delete resultRows[0].idUsuario;
+  /* v8 ignore next 4*/
   } catch (error) {
     // Em caso de erro, imprime no console o traceback e onde no código ocorreu o erro;
     console.log(error);
@@ -37,9 +38,9 @@ async function existsEmail(email) {
     // Tenta fazer a query no banco de dados;
     const queryResult = await connection.query(query, [email]);
     resultRows = queryResult.rows[0];
+  /* v8 ignore next 3*/
   } catch (error) {
     // Em caso de erro, imprime no console o traceback e onde no código ocorreu o erro;
-    console.log(error);
     console.error("Erro ao consultar email no banco de dados");
   } finally {
     connection.release();
@@ -59,6 +60,7 @@ async function loginUsuario(credenciais) {
     if (queryResult.rows[0]) {
         result = queryResult.rows[0];
     }
+  /* v8 ignore next 4 */
   } catch (error) {
     // Em caso de erro, imprime no console o traceback e onde no código ocorreu o erro;
     console.log(error);
