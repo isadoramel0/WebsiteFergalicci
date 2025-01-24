@@ -9,6 +9,8 @@ import AdminRoutes from './components/AdminRoutes.jsx';
 import Admin from './view/Admin/PrincipalAdmin.jsx';
 import Produtos from './view/Admin/Produtos/ExibirProdutos.jsx';
 import Postagens from './view/Admin/Postagem/ExibirPostagens.jsx';
+import AddProduto from './view/Admin/Produtos/CadastrarProduto.jsx';
+import EditarProduto from './view/Admin/Produtos/EditarProduto.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -21,6 +23,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/admin" element={<AdminRoutes />}>
           <Route index element={<Admin />} />
           <Route path="produtos" element={<Produtos />} />
+          <Route path="produtos/add" element={<AddProduto />} />
+          <Route path="produtos/editar/:produtoId" element={<EditarProduto />} />
 
           <Route path="postagens" element={<Postagens />} />
         </Route>

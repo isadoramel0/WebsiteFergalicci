@@ -35,8 +35,8 @@ const Login = () => {
         // Armazena o token JWT no localStorage
         localStorage.setItem("token", data.token);
 
-        // Redireciona para a página blog
-        navigate("/");
+        // Redireciona para a página principal
+        navigate("/admin");
       } else {
         // Exibe mensagem de erro recebida do servidor
         setError(data.erro || "Erro ao realizar login.");

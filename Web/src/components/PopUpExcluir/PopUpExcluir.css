@@ -1,0 +1,74 @@
+.engloba-caixa-alerta {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.caixa-alerta {
+  background: white;
+  text-align: center;
+  padding: 0rem 5rem;
+  padding-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.atencao {
+  background-color: var(--vinho);
+  width: 100%;
+  padding: 1rem 5rem;
+  margin-bottom: 1rem;
+  color: white;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.text-alert {
+  font-size: 23px;
+  margin: 0.5rem 0;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+  width: 100%;
+}
+
+#btn-form-cancelar-caixa,
+#btn-salvar-visualizar-caixa {
+  padding: 0.5rem 3rem;
+  border: none;
+  cursor: pointer;
+  color: var(--preto);
+  font-size: 23px;
+}
+
+#btn-form-cancelar-caixa {
+  background-color: #DC98A0;
+}
+
+#btn-salvar-visualizar-caixa {
+  margin-left: 3rem;
+  background-color: #78E58F;
+}
+
+.loader {
+  border: 4px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 4px solid #3498db;
+  width: 20px;
+  height: 20px;
+  animation: spin 2s linear infinite;
+  margin: 0 auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
