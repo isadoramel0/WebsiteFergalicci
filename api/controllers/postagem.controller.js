@@ -1,4 +1,5 @@
 import { apagarArquivo } from "../util/fileDeleter.js";
+import produtoRepository from "../repositories/produto.repository.js";
 
 async function createPostagem(req, res) {
   const postagem = {
@@ -32,6 +33,21 @@ async function createPostagem(req, res) {
       apagarArquivo(postagem.caminhoimg);
     }
     return res.status(400).json({ erros });
+  }
+
+  // Verificar se os produtos existem no banco de dados
+  const produtosExistem = await Promise.all(
+    postagem.produtos.map(async (produtoId) => {
+      const produto = await produtoRepository.readProduto(produtoId);
+      return produto !== undefined;
+    })
+  );
+
+  if (produtosExistem.includes(false)) {
+    if (postagem.caminhoimg) {
+      apagarArquivo(postagem.caminhoimg);
+    }
+    return res.status(400).json({ erros: ["Um ou mais produtos fornecidos não existem"] });
   }
 
   return res.send(postagem);
