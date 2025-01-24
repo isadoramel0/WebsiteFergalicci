@@ -17,4 +17,8 @@ async function loginUsuario(usuario) {
   return await usuarioRepository.loginUsuario(usuario);
 }
 
-export default { createUsuario, loginUsuario };
+async function updateTokenUsuario(idUsuario, token) {
+  return await usuarioRepository.updateTokenUsuario(idUsuario, token);
+}
+
+export default { createUsuario, loginUsuario, updateTokenUsuario };
