@@ -49,12 +49,12 @@ const ExibirProdutos = () => {
     fetchProdutos();
   }, [paginaAtual]);
 
-  const handleEdit = (produtoId) => {
-    navigate(`/admin/produtos/editar/${produtoId}`);
+  const handleEdit = (idProduto) => {
+    navigate(`/admin/produtos/editar/${idProduto}`);
   };
 
-  const handleDelete = async (produtoId) => {
-    setProdutoToDelete(produtoId);
+  const handleDelete = async (idProduto) => {
+    setProdutoToDelete(idProduto);
     setShowPopUpExcluir(true);
   };
 
@@ -67,7 +67,7 @@ const ExibirProdutos = () => {
           'Authorization': `Bearer ${token}`,
         },
       });
-      setProdutos(produtos.filter(produto => produto.id !== produtoToDelete));
+      setProdutos(produtos.filter(produto => produto.idProduto !== produtoToDelete));
       setShowPopUpExcluir(false);
       setProdutoToDelete(null);
     } catch (error) {
@@ -128,14 +128,14 @@ const ExibirProdutos = () => {
                 </thead>
                 <tbody className='corpo-tabela'>
                   {currentFilteredProdutos.map((produto, index) => (
-                    <tr key={produto.id || index}>
+                    <tr key={produto.idProduto || index}>
                       <td>
                         <p className="nome-produto">{produto.nomeProd}</p>
                         <div className="botoes">
-                          <button onClick={() => handleEdit(produto.id)} className='btn-editar'>Editar
+                          <button onClick={() => handleEdit(produto.idProduto)} className='btn-editar'>Editar
                             <img className='icones' src={iconeLapis} alt="Icone Lápis" />
                           </button>
-                          <button onClick={() => handleDelete(produto.id)} className="btn-excluir">Excluir
+                          <button onClick={() => handleDelete(produto.idProduto)} className="btn-excluir">Excluir
                             <img className='icones' src={iconeLixeira} alt="Icone Lixeira" />
                           </button>
                         </div>

@@ -23,12 +23,12 @@ const EditarProduto = () => {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        setNome(data.nomeProd);
-        console.log('Nome do Produto:', data.nomeProd);
-        console.log('ID do Produto:', data.idProd);
+        console.log('Dados do Produto:', data);
+        setNome(data.produto.nomeProd || '');
         setIsLoading(false);
       } catch (error) {
         console.error('Erro ao buscar produto:', error);
+        setErrorMessage('Erro ao buscar produto.');
         setIsLoading(false);
       }
     };
@@ -68,11 +68,22 @@ const EditarProduto = () => {
     }
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImagem(file);
+    }
+  };
+
+  if (isLoading) {
+    return <div>Carregando...</div>;
+  }
+
   return (
     <div className='cadastro-produto'>
       <div className='container-cima'>
         <nav className='nav-admin'>
-          <Link to='/'><img src='../../../../public/imgs/Fergalicci-preto.png' alt="Fergalicci" className="logo-admin" /></Link>
+          <Link to='/'><img src='/imgs/Fergalicci-preto.png' alt="Fergalicci" className="logo-admin" /></Link>
           <h3>Administrador</h3>
         </nav>
         <div className="titulo-produtos">
@@ -103,7 +114,7 @@ const EditarProduto = () => {
                 type="file"
                 id="img"
                 name="foto_produto"
-                onChange={(e) => setImagem(e.target.files[0])}
+                onChange={handleImageChange}
               />
             </div>
           </div>

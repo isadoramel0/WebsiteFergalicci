@@ -26,7 +26,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route index element={<Admin />} />
           <Route path="produtos" element={<Produtos />} />
           <Route path="produtos/add" element={<AddProduto />} />
-          <Route path="produtos/editar/:produtoId" element={<EditarProduto />} />
+          <Route path="produtos/editar/:idProduto" element={<EditarProduto />} />
 
           <Route path="postagens" element={<Postagens />} />
         </Route>
