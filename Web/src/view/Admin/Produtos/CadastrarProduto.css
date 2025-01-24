@@ -32,8 +32,9 @@
 
 .inputs-cadastro .input-nome input {
     border: 1px solid var(--preto);
-    padding: 1rem 0;
+    padding: 0.8rem 0;
     background-color: var(--branco);
+    font-size: 25px;
 }
 
 .inputs-cadastro .input-nome label,
@@ -87,6 +88,12 @@
     color: var(--branco);
     background-color: var(--preto);
     cursor: pointer;
+}
+
+.error-message {
+    color: red;
+    font-size: 15px;
+    margin-top: 1rem;
 }
 
 @media (max-width: 1000px) {
