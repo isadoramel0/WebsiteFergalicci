@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './ExibirProdutos.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Pagination from '../../../components/Pagination/Pagination.jsx';
 import PopUpExcluir from '../../../components/PopUpExcluir/PopUpExcluir.jsx';
 import logo from '../../../../public/imgs/Fergalicci-preto.png';  
@@ -10,11 +10,13 @@ import iconeLixeira from '../../../../public/imgs/IconeLixeira.png';
 
 const ExibirProdutos = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [produtos, setProdutos] = useState([]);
   const [paginaAtual, setPaginaAtual] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
   const [produtoToDelete, setProdutoToDelete] = useState(null);
   const [showPopUpExcluir, setShowPopUpExcluir] = useState(false);
+  const [showSuccessPopup, setShowSuccessPopup] = useState(location.state?.showSuccessPopup || false);
   const produtosPorPagina = 5;
 
   useEffect(() => {
@@ -152,6 +154,14 @@ const ExibirProdutos = () => {
         onClose={() => setShowPopUpExcluir(false)}
         onConfirm={confirmDelete}
       />
+
+      {showSuccessPopup && (
+        <div className="popup-success">
+          <div className="aviso">Aviso</div>
+          <p>Item cadastrado com sucesso!</p>
+          <button onClick={() => setShowSuccessPopup(false)}>OK</button>
+        </div>
+      )}
     </div>
   );
 }

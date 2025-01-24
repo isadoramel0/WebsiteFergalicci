@@ -89,17 +89,6 @@
     cursor: pointer;
 }
 
-.popup-success {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background-color: var(--verde);
-    color: var(--branco);
-    padding: 1rem;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
 @media (max-width: 1000px) {
     .form-cadastro {
         margin-bottom: 15rem;

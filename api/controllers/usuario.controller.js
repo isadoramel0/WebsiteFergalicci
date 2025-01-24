@@ -44,6 +44,7 @@ async function loginUsuario(req, res) {
   };
 
   // Busca se o usuário existe no banco de dados
+  console.log(usuario);
   const dados = await usuarioServices.loginUsuario(usuario);
 
   if (dados === null || usuario.senha !== dados.senha) {

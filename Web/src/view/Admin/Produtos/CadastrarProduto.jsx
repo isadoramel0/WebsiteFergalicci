@@ -5,7 +5,6 @@ import { Link, useNavigate } from 'react-router-dom';
 const CadastrarProduto = () => {
   const [nome, setNome] = useState('');
   const [imagem, setImagem] = useState(null);
-  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
@@ -31,11 +30,7 @@ const CadastrarProduto = () => {
       });
 
       if (response.ok) {
-        setShowSuccessPopup(true);
-        setTimeout(() => {
-          setShowSuccessPopup(false);
-          navigate('/admin/produtos');
-        }, 5000);
+        navigate('/admin/produtos', { state: { showSuccessPopup: true } });
       } else {
         const errorData = await response.json();
         setErrorMessage(errorData.erro || 'Erro ao cadastrar produto.');
@@ -95,9 +90,9 @@ const CadastrarProduto = () => {
         </form>
       </div>
 
-      {showSuccessPopup && (
-        <div className="popup-success">
-          <p>Realizou o cadastro com sucesso!</p>
+      {errorMessage && (
+        <div className="popup-error">
+          <p>{errorMessage}</p>
         </div>
       )}
     </div>
