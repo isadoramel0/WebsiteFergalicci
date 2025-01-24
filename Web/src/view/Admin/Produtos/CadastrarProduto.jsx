@@ -89,12 +89,6 @@ const CadastrarProduto = () => {
           </div>
         </form>
       </div>
-
-      {errorMessage && (
-        <div className="popup-error">
-          <p>{errorMessage}</p>
-        </div>
-      )}
     </div>
   );
 }
