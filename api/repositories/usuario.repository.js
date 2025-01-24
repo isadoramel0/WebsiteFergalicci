@@ -38,7 +38,6 @@ async function existsEmail(email) {
     // Tenta fazer a query no banco de dados;
     const queryResult = await connection.query(query, [email]);
     resultRows = queryResult.rows[0];
-    /* v8 ignore next 3*/
   } catch (error) {
     // Em caso de erro, imprime no console o traceback e onde no código ocorreu o erro;
     console.error("Erro ao consultar email no banco de dados");
@@ -88,4 +87,23 @@ async function updateTokenUsuario(idUsuario, token) {
   return { mensagem: "Token de usuário atualizado com sucesso" };
 }
 
-export default { createUsuario, existsEmail, loginUsuario, updateTokenUsuario };
+async function getTokenUsuario(idUsuario) {
+  const connection = await database.connect();
+  let resultRows = null;
+  const query = 'SELECT token FROM "Usuario" WHERE "idUsuario" = $1';
+
+  try {
+    // Tenta fazer a query no banco de dados;
+    const queryResult = await connection.query(query, [idUsuario]);
+    resultRows = queryResult.rows[0];
+  } catch (error) {
+    // Em caso de erro, imprime no console o traceback e onde no código ocorreu o erro;
+    console.error("Erro ao consultar email no banco de dados");
+  } finally {
+    connection.release();
+  }
+
+  return resultRows.token;
+}
+
+export default { createUsuario, existsEmail, loginUsuario, updateTokenUsuario, getTokenUsuario };
