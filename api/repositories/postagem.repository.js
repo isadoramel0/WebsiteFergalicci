@@ -139,4 +139,29 @@ async function deletePostagem(idPostagem) {
   return resultRows;
 }
 
-export default { createPostagem, readPostagens, deletePostagem, readPostagem };
+async function temDependencias(idProduto) {
+  const connection = await database.connect();
+  let resultRows = null;
+
+  try {
+    const queryResult = await connection.query(
+      `SELECT * FROM "ProdutosDePostagem" WHERE "idProduto" = $1 LIMIT 1`,
+      [idProduto]
+    );
+    return queryResult.rows;
+  } catch (error) {
+    console.log(error);
+    console.error("Erro ao buscar dependências do produto no banco de dados");
+    return [];
+  } finally {
+    connection.release();
+  }
+}
+
+export default {
+  createPostagem,
+  readPostagens,
+  deletePostagem,
+  readPostagem,
+  temDependencias,
+};
