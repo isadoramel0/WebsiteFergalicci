@@ -123,7 +123,7 @@ const ExibirProdutos = () => {
               <table className='tabela'>
                 <thead className='cabecalho'>
                   <tr>
-                    <th>Nome do Produto</th>
+                    <th>Nome do produto</th>
                   </tr>
                 </thead>
                 <tbody className='corpo-tabela'>

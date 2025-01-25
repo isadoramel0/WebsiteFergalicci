@@ -12,6 +12,8 @@ import Produtos from './view/Admin/Produtos/ExibirProdutos.jsx';
 import Postagens from './view/Admin/Postagem/ExibirPostagens.jsx';
 import AddProduto from './view/Admin/Produtos/CadastrarProduto.jsx';
 import EditarProduto from './view/Admin/Produtos/EditarProduto.jsx';
+import AddPostagem from './view/Admin/Postagem/CadastrarPostagem.jsx';
+import EditarPostagem from './view/Admin/Postagem/EditarPostagem.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -29,6 +31,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="produtos/editar/:idProduto" element={<EditarProduto />} />
 
           <Route path="postagens" element={<Postagens />} />
+          <Route path="postagens/add" element={<AddPostagem />} />
+          <Route path="produtos/editar/:idPostagem" element={<EditarPostagem />} />
         </Route>
       </Routes>
     </BrowserRouter>

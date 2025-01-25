@@ -7,7 +7,6 @@ const EditarProduto = () => {
   const [nome, setNome] = useState('');
   const [imagem, setImagem] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,11 +24,9 @@ const EditarProduto = () => {
         const data = await response.json();
         console.log('Dados do Produto:', data);
         setNome(data.produto.nomeProd || '');
-        setIsLoading(false);
       } catch (error) {
         console.error('Erro ao buscar produto:', error);
         setErrorMessage('Erro ao buscar produto.');
-        setIsLoading(false);
       }
     };
 
@@ -74,10 +71,6 @@ const EditarProduto = () => {
       setImagem(file);
     }
   };
-
-  if (isLoading) {
-    return <div>Carregando...</div>;
-  }
 
   return (
     <div className='cadastro-produto'>
