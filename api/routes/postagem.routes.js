@@ -20,4 +20,11 @@ router.get(
   postagemController.readPostagens
 );
 
+router.delete(
+  "/:idPostagem",
+  token.authenticateAccessToken,
+  checkAdminPrivileges,
+  postagemController.deletePostagem
+)
+
 export default router;

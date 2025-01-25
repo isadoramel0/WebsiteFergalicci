@@ -74,7 +74,7 @@ async function readPostagens() {
 
   try {
     const result = await connection.query(`
-      SELECT p.*, array_agg(pd."idProduto") as produtos
+      SELECT p.*, array_agg(pd."idProduto") AS produtos
       FROM "Postagem" p
       LEFT JOIN "ProdutosDePostagem" pd ON p."idPostagem" = pd."idPostagem"
       GROUP BY p."idPostagem"
@@ -92,4 +92,51 @@ async function readPostagens() {
   return resultRows;
 }
 
-export default { createPostagem, readPostagens };
+async function readPostagem(idPostagem) {
+  const connection = await database.connect();
+  let resultRows = null;
+
+  try {
+    const result = await connection.query(
+      `SELECT * FROM "Postagem" WHERE "idPostagem" = $1`,
+      [idPostagem]
+    );
+    resultRows = result.rows[0];
+  } catch (erro) {
+    console.log(erro);
+    console.error("Houve um erro ao consultar postagem no banco de dados");
+    return null;
+  } finally {
+    connection.release();
+  }
+
+  return resultRows;
+}
+
+async function deletePostagem(idPostagem) {
+  const connection = await database.connect();
+  let resultRows = null;
+
+  try {
+    await connection.query(
+      `DELETE FROM "ProdutosDePostagem" WHERE "idPostagem" = $1`,
+      [idPostagem]
+    );
+
+    const queryResult = await connection.query(
+      `DELETE FROM "Postagem" WHERE "idPostagem" = $1 RETURNING *`,
+      [idPostagem]
+    );
+    resultRows = queryResult.rows[0];
+  } catch (error) {
+    console.log(error);
+    console.error("Erro ao buscar a postagem no banco de dados");
+    return null;
+  } finally {
+    connection.release();
+  }
+
+  return resultRows;
+}
+
+export default { createPostagem, readPostagens, deletePostagem, readPostagem };

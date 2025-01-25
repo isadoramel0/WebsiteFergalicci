@@ -76,4 +76,28 @@ async function readPostagens(req, res) {
   }
 }
 
-export default { createPostagem, readPostagens };
+async function deletePostagem(req, res) {
+  const idPostagem = req.params.idPostagem;
+
+  if (!idPostagem) {
+    return res.status(400).json({ erro: "ID da postagem não fornecido" });
+  }
+
+  const postagem = await postagemServices.readPostagem(idPostagem);
+  if (!postagem) {
+    return res.status(404).json({ erro: "Postagem não encontrada" });
+  }
+
+  const resultado = await postagemServices.deletePostagem(idPostagem);
+
+  if (resultado) {
+    if (postagem.caminhoimg) {
+      apagarArquivo(postagem.caminhoimg);
+    }
+    return res.status(200).json({ mensagem: "Postagem deletada com sucesso" });
+  } else {
+    return res.status(500).json({ erro: "Erro ao deletar a postagem" });
+  }
+}
+
+export default { createPostagem, readPostagens, deletePostagem };
