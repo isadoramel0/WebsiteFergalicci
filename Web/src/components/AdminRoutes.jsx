@@ -1,12 +1,10 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 
 const AdminRoutes = () => {
-  return (
-    <div>
-      <Outlet />
-    </div>
-  );
+  const isAdmin = localStorage.getItem('admin') === 'true';
+
+  return isAdmin ? <Outlet /> : <Navigate to="/login" />;
 };
 
 export default AdminRoutes;
