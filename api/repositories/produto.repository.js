@@ -24,10 +24,10 @@ async function createProduto(novoproduto) {
 
 async function readProdutos() {
   const connection = await database.connect();
-  let resultRows = null
-  
+  let resultRows = null;
+
   const query = 'SELECT * FROM "Produto"';
-  
+
   try {
     const queryResult = await connection.query(query);
     resultRows = queryResult.rows;
@@ -58,7 +58,7 @@ async function readProduto(id) {
   return resultRow;
 }
 
-async function updateProduto(produto){
+async function updateProduto(produto) {
   const connection = await database.connect();
   let resultRows = null;
   const query =
@@ -68,7 +68,7 @@ async function updateProduto(produto){
     const queryResult = await connection.query(query, [
       produto.nome,
       produto.arquivo,
-      produto.idProduto
+      produto.idProduto,
     ]);
     resultRows = queryResult.rows[0];
   } catch (error) {
@@ -81,4 +81,32 @@ async function updateProduto(produto){
   return resultRows;
 }
 
-export default { createProduto, readProdutos, readProduto, updateProduto };
+async function functionAllExisting(produtos) {
+  const connection = await database.connect();
+  // Soma 1 ao contador toda vez que o idProduto for igual a algum do array produtos
+  const query =
+    'SELECT COUNT(*) FROM "Produto" WHERE "idProduto" = ANY($1::int[])';
+
+  try {
+    const queryResult = await connection.query(query, [produtos]);
+    const count = parseInt(queryResult.rows[0].count, 10);
+    if (produtos.length - count === 0) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.log(error);
+    console.error("Erro ao modificar um produto no banco de dados");
+  } finally {
+    connection.release();
+  }
+}
+
+export default {
+  createProduto,
+  readProdutos,
+  readProduto,
+  updateProduto,
+  functionAllExisting,
+};
