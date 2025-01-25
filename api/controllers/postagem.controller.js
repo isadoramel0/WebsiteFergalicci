@@ -62,4 +62,18 @@ async function createPostagem(req, res) {
   }
 }
 
-export default { createPostagem };
+async function readPostagens(req, res) {
+  const postagens = await postagemServices.readPostagens();
+
+  if (!postagens) {
+    return res.status(400).json({
+      erro: "Não foi possível consultar as postagens",
+    });
+  } else if (postagens.length >= 1) {
+    return res.status(200).json({ postagens });
+  } else {
+    return res.status(200).json({ mensagem: "Nenhuma postagem cadastrada" });
+  }
+}
+
+export default { createPostagem, readPostagens };

@@ -50,7 +50,6 @@ async function createRelacoesProdPost(postagem, idPostagem) {
     }
   });
 
-  
   const query = `INSERT INTO "ProdutosDePostagem" ("idProduto", "idPostagem")
   VALUES ${insersoes} RETURNING *`;
   console.log(query);
@@ -69,4 +68,27 @@ async function createRelacoesProdPost(postagem, idPostagem) {
   return resultRows;
 }
 
-export default { createPostagem };
+async function readPostagens() {
+  const connection = await database.connect();
+  let resultRows = null;
+
+  try {
+    const result = await connection.query(`
+      SELECT p.*, array_agg(pd."idProduto") as produtos
+      FROM "Postagem" p
+      LEFT JOIN "ProdutosDePostagem" pd ON p."idPostagem" = pd."idPostagem"
+      GROUP BY p."idPostagem"
+    `);
+    resultRows = result.rows;
+  } catch (erro) {
+    console.log(erro);
+    console.error("Houve um erro ao consultar postagens no banco de dados");
+    return null;
+  } finally {
+    connection.release();
+  }
+
+  return resultRows;
+}
+
+export default { createPostagem, readPostagens };

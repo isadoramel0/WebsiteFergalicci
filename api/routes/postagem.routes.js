@@ -13,5 +13,11 @@ router.post(
   upload.single("foto_produto"),
   postagemController.createPostagem
 );
+router.get(
+  "",
+  token.authenticateAccessToken,
+  checkAdminPrivileges,
+  postagemController.readPostagens
+);
 
 export default router;

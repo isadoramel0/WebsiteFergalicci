@@ -4,4 +4,8 @@ async function createPostagem(postagem) {
   return await postagemRepository.createPostagem(postagem);
 }
 
-export default { createPostagem };
+async function readPostagens() {
+  return await postagemRepository.readPostagens();
+}
+
+export default { createPostagem, readPostagens };
