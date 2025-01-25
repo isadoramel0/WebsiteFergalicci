@@ -78,6 +78,7 @@ async function readPostagens() {
       FROM "Postagem" p
       LEFT JOIN "ProdutosDePostagem" pd ON p."idPostagem" = pd."idPostagem"
       GROUP BY p."idPostagem"
+      ORDER BY p."idPostagem" DESC
     `);
     resultRows = result.rows;
   } catch (erro) {
