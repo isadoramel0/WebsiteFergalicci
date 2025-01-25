@@ -109,4 +109,37 @@ async function updateProduto(req, res) {
   }
 }
 
-export default { createProduto, readProdutos, readProduto, updateProduto };
+async function deleteProduto(req, res) {
+  const idProduto = req.params.idProduto;
+
+  if (!idProduto) {
+    return res.status(400).json({ erro: "ID do produto não informado" });
+  }
+
+  const produto = await produtoServices.readProduto(idProduto);
+
+  if (!produto) {
+    return res
+      .status(400)
+      .json({ erro: "Produto não encontrado na base de dados" });
+  }
+
+  const deletado = await produtoServices.deleteProduto(idProduto);
+
+  if (deletado.success) {
+    await apagarArquivo(produto.caminhoImg);
+    return res.status(200).json({ mensagem: "Produto deletado com sucesso", produto: deletado.data});
+  } else {
+    return res
+      .status(400)
+      .json({ mensagem: "Falha ao deletar produto no banco de dados", erro: deletado.data});
+  }
+}
+
+export default {
+  createProduto,
+  readProdutos,
+  readProduto,
+  updateProduto,
+  deleteProduto,
+};

@@ -103,10 +103,27 @@ async function functionAllExisting(produtos) {
   }
 }
 
+async function deleteProduto(idProduto) {
+  const connection = await database.connect();
+  const query = 'DELETE FROM "Produto" WHERE "idProduto" = $1 RETURNING *';
+
+  try {
+    const queryResult = await connection.query(query, [idProduto]);
+    return queryResult.rows;
+  } catch (error) {
+    console.log(error);
+    console.error("Erro ao modificar um produto no banco de dados");
+    return null;
+  } finally {
+    connection.release();
+  }
+}
+
 export default {
   createProduto,
   readProdutos,
   readProduto,
   updateProduto,
   functionAllExisting,
+  deleteProduto,
 };
