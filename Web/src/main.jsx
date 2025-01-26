@@ -32,7 +32,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 
           <Route path="postagens" element={<Postagens />} />
           <Route path="postagens/add" element={<AddPostagem />} />
-          <Route path="produtos/editar/:idPostagem" element={<EditarPostagem />} />
+          <Route path="postagens/editar/:idPostagem" element={<EditarPostagem />} />
         </Route>
       </Routes>
     </BrowserRouter>

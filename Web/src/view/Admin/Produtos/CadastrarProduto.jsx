@@ -44,7 +44,7 @@ const CadastrarProduto = () => {
 
   return (
     <div className='cadastro-produto'>
-      <div className='container-cima'>
+      <div className='container-cima-produto'>
         <nav className='nav-admin'>
           <Link to='/'><img src='../../../../public/imgs/Fergalicci-preto.png' alt="Fergalicci" className="logo-admin" /></Link>
           <h3>Administrador</h3>

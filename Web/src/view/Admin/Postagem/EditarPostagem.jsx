@@ -1,8 +1,11 @@
 import React from 'react'
+import { useParams } from 'react-router-dom';
 
 const EditarPostagem = () => {
+  const { idPostagem } = useParams();
+
   return (
-    <div>EditarPostagens</div>
+    <div>EditarPostagens {idPostagem}</div>
   )
 }
 
