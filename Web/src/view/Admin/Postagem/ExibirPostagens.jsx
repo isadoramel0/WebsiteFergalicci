@@ -26,9 +26,9 @@ const ExibirPostagens = () => {
         const idUsuario = localStorage.getItem('idUsuario');
         const admin = localStorage.getItem('admin');
 
-        console.log('Token:', token);
-        console.log('idUsuario:', idUsuario);
-        console.log('Admin:', admin);
+        // console.log('Token:', token);
+        // console.log('idUsuario:', idUsuario);
+        // console.log('Admin:', admin);
         
         const response = await fetch(`http://localhost:3000/postagens`, {
           headers: {

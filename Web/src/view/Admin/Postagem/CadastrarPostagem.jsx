@@ -182,9 +182,10 @@ const CadastrarPostagem = () => {
               />
             </div>
 
+            <div className='produtos-relacionados'><label>Produtos relacionados</label></div>
             <div className="input-produtos">
-              <label>Produtos Disponíveis</label>
               <div className="busca">
+                <img className='icone-lupa' src='../../../../public/imgs/Lupa.png' alt="Icone Lupa" />
                 <input
                   className='buscar'
                   type="text"
@@ -196,14 +197,14 @@ const CadastrarPostagem = () => {
               <table className='tabela'>
                 <thead className='cabecalho'>
                   <tr>
-                    <th>Nome do Produto</th>
+                    <th className='nomes-produtos'>Nome do produto</th>
                   </tr>
                 </thead>
                 <tbody className='corpo-tabela'>
                   {currentFilteredProdutos.map((produto) => (
-                    <tr key={produto.idProduto}>
+                    <tr key={produto.idProduto} >
                       <td>{produto.nomeProd}</td>
-                      <td>
+                      <td className='selecionar'>
                         <span>Selecionar</span>
                         <input
                           type="checkbox"
@@ -228,7 +229,7 @@ const CadastrarPostagem = () => {
           
           <div className="container-baixo">
             <Link className='btn-ctr' to='/admin/postagens'>Cancelar</Link>
-            <button type="submit" className='btn-ctr'>Cadastrar</button>
+            <button type="submit" className='btn-ctr'>Publicar</button>
           </div>
         </form>
       </div>

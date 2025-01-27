@@ -15,9 +15,9 @@ const CadastrarProduto = () => {
     formData.append('nomeProd', nome);
     formData.append('foto_produto', imagem);
 
-    console.log('Dados enviados para o backend:');
-    console.log('Nome do Produto:', nome);
-    console.log('Imagem:', imagem);
+    // console.log('Dados enviados para o backend:');
+    // console.log('Nome do Produto:', nome);
+    // console.log('Imagem:', imagem);
 
     try {
       const token = localStorage.getItem('token');

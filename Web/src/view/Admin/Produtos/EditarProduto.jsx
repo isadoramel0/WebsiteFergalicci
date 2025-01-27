@@ -22,7 +22,7 @@ const EditarProduto = () => {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        console.log('Dados do Produto:', data);
+        // console.log('Dados do Produto:', data);
         setNome(data.produto.nomeProd || '');
       } catch (error) {
         console.error('Erro ao buscar produto:', error);

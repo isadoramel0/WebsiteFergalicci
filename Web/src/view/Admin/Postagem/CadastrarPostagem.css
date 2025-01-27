@@ -74,6 +74,7 @@
 .input-corpo textarea {
     height: 13rem;
     resize: none;
+    font-size: 30px;
 }
 
 .tipo-conteudo {
@@ -97,37 +98,72 @@
     display: none;
 }
 
+.produtos-relacionados {
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    border: 1px solid var(--vinho);
+    padding: 1rem 0;
+    margin-bottom: 0.8rem;
+}
+
 .input-produtos .busca {
     display: flex;
-    margin-bottom: 1rem;
+}
+
+.input-produtos .busca .icone-lupa {
+    width: 50px;
+    height: 55px;
+    margin: 1rem 0rem 0rem 1rem;
+}
+
+.input-produtos {
+    border: solid 1px var(--vinho);
+    padding-bottom: 2rem;
 }
 
 .input-produtos .buscar {
     padding: 0.5rem;
     width: 100%;
-    border: solid 1px var(--vinho);
-    font-size: 16px;
+    border: solid 2px var(--vinho);
+    font-size: 30px;
     color: var(--vinho);
     background-color: var(--branco);
+    margin: 0.8rem;
 }
 
 .input-produtos .tabela {
     width: 100%;
-    border-collapse: collapse;
+    padding: 0.8rem;
 }
 
 .input-produtos .tabela .cabecalho {
     background-color: var(--vinho);
     color: var(--branco);
+    text-align: left;
+    padding: 2rem;
 }
 
 .input-produtos .tabela thead tr {
     background-color: var(--vinho);
     color: var(--branco);
-    font-size: 18px;
+}
+
+.input-produtos .tabela thead tr th {
+    padding: 1.2rem;
+    font-size: 30px;
 }
 
 .input-produtos .tabela .corpo-tabela tr {
+    font-size: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    margin: 1rem;
+}
+
+.input-produtos .tabela .corpo-tabela tr:last-child {
     border-bottom: solid 0.5px #BDA097;
 }
 
@@ -143,13 +179,16 @@
     font-size: 16px;
 }
 
-.input-produtos .tabela .corpo-tabela tr td .selecionar {
+.input-produtos .tabela .corpo-tabela tr .selecionar {
     display: flex;
     align-items: center;
+    font-size: 20px;
+    margin-right: 1rem;
 }
 
 .input-produtos .tabela .corpo-tabela tr td .selecionar span {
     margin-right: 0.5rem;
+    font-size: 20px;
 }
 
 .error-message {
