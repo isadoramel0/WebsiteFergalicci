@@ -16,4 +16,8 @@ async function readPostagem(idPostagem) {
   return await postagemRepository.readPostagem(idPostagem);
 }
 
-export default { createPostagem, readPostagens, deletePostagem, readPostagem };
+async function updatePostagem(postagem){
+  return await postagemRepository.updatePostagem(postagem);
+}
+
+export default { createPostagem, readPostagens, deletePostagem, readPostagem, updatePostagem };
