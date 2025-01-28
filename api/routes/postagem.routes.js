@@ -10,7 +10,7 @@ router.post(
   "",
   token.authenticateAccessToken,
   checkAdminPrivileges,
-  upload.single("foto_produto"),
+  upload.single("foto_postagem"),
   postagemController.createPostagem
 );
 router.get(
