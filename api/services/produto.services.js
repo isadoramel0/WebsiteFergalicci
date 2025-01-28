@@ -1,4 +1,5 @@
 import produtoRepository from "../repositories/produto.repository.js";
+import postagemRepository from "../repositories/postagem.repository.js";
 
 async function createProduto(produto) {
   // A regra de negócio 1 do RF001 é tratada com a restrição do banco de dados
@@ -20,4 +21,23 @@ async function updateProduto(produto) {
   return await produtoRepository.updateProduto(produto);
 }
 
-export default { createProduto, readProdutos, readProduto, updateProduto };
+async function deleteProduto(idProduto) {
+  // Buscar se o produto existe em alguma postagem
+  const dependencia = await postagemRepository.temDependencias(idProduto);
+  if (dependencia.lenght > 1) {
+    return {
+      success: false,
+      data: "O produto possui dependências em postagens",
+    };
+  } else {
+    return { success: true, data: await produtoRepository.deleteProduto(idProduto) };
+  }
+}
+
+export default {
+  createProduto,
+  readProdutos,
+  readProduto,
+  updateProduto,
+  deleteProduto,
+};
