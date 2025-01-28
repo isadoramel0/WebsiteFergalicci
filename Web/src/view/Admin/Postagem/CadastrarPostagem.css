@@ -191,6 +191,60 @@
     font-size: 20px;
 }
 
+.input-produtos .tabela .corpo-tabela tr td .selecionar input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--rosa);
+    border-radius: 50%;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+    position: relative;
+}
+
+.input-produtos .tabela .corpo-tabela tr td .selecionar input[type="checkbox"]:checked {
+    background-color: var(--rosa);
+    border: 2px solid var(--rosa);
+}
+
+.input-produtos .tabela .corpo-tabela tr td .selecionar input[type="checkbox"]:checked::before {
+    content: '✔';
+    color: var(--branco);
+    font-size: 16px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.checkbox-custom {
+    padding: 1.5rem;
+    margin-left: 2.5rem;
+    border: 2px solid var(--rosa);
+    border-radius: 30%;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+    position: relative;
+}
+
+.checkbox-custom:checked {
+    background-color: var(--rosa);
+    border: 2px solid var(--rosa);
+}
+
+.checkbox-custom:checked::before {
+    content: '✔';
+    color: #4B1B21;
+    font-size: 4.5rem;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .error-message {
     color: red;
     font-size: 14px;

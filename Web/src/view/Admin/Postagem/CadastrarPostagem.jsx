@@ -208,6 +208,7 @@ const CadastrarPostagem = () => {
                         <span>Selecionar</span>
                         <input
                           type="checkbox"
+                          className="checkbox-custom"
                           checked={produtosSelecionados.includes(produto.idProduto)}
                           onChange={() => handleProdutoChange(produto.idProduto)}
                         />
