@@ -52,7 +52,6 @@ async function createRelacoesProdPost(postagem, idPostagem) {
 
   const query = `INSERT INTO "ProdutosDePostagem" ("idProduto", "idPostagem")
   VALUES ${insersoes} RETURNING *`;
-  console.log(query);
 
   try {
     const queryResult = await connection.query(query);

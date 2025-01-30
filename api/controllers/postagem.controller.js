@@ -72,7 +72,7 @@ async function readPostagens(req, res) {
   } else if (postagens.length >= 1) {
     return res.status(200).json({ postagens });
   } else {
-    return res.status(200).json({ mensagem: "Nenhuma postagem cadastrada" });
+    return res.status(200).json({ postagens: [], mensagem: "Nenhuma postagem cadastrada" });
   }
 }
 
