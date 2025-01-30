@@ -5,6 +5,7 @@
 
 .blog {
     background-color: #DC98A0;
+    height: 100vh;
 }
 
 .blog .nav-blog,
@@ -36,6 +37,10 @@
     margin-right: 3rem;
 }
 
+.tipo-post p.selected {
+    border-bottom: 3px solid var(--branco); 
+}
+
 .blog .postagens {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -47,10 +52,18 @@
     background-color: white;
     padding: 2rem;
     margin: 1rem;
-    width: 25rem;
+    width: 27rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .blog .post-blog .img-post-blog {
     width: 100%;
+    min-height: 22rem;
 }
 
+.titulo-post-blog {
+    font-size: 30px;
+    margin-top: 1rem;
+}
