@@ -16,8 +16,6 @@ router.post(
 
 router.get(
   "",
-  token.authenticateAccessToken,
-  checkAdminPrivileges,
   postagemController.readPostagens
 );
 
