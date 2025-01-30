@@ -72,7 +72,9 @@ async function readPostagens(req, res) {
   } else if (postagens.length >= 1) {
     return res.status(200).json({ postagens });
   } else {
-    return res.status(200).json({ postagens: [], mensagem: "Nenhuma postagem cadastrada" });
+    return res
+      .status(200)
+      .json({ postagens: [], mensagem: "Nenhuma postagem cadastrada" });
   }
 }
 
@@ -112,7 +114,6 @@ async function readDependencias(req, res) {
   } else {
     return res.status(200).json({ mensagem: "Nenhum dependência encontrada" });
   }
-  
 }
 
 async function updatePostagem(req, res) {
@@ -124,6 +125,8 @@ async function updatePostagem(req, res) {
     caminhoimg: req.file ? req.file.filename : null,
     produtos: req.body.produtos ? JSON.parse(req.body.produtos) : [],
   };
+
+  console.log(postagem);
 
   // Confirmar que o ID da postagem existe no banco de dados
   const postagemAntiga = await postagemServices.readPostagem(idPostagem);
@@ -152,28 +155,31 @@ async function updatePostagem(req, res) {
     tituloPost: postagem.tituloPost || postagemAntiga.tituloPost,
     tipoConteudo: postagem.tipoConteudo || postagemAntiga.tipoConteudo,
     corpo: postagem.corpo || postagemAntiga.corpo,
-    caminhoimg: postagem.caminhoimg || postagemAntiga.caminhoimg,
+    caminhoimg: postagem.caminhoimg || postagemAntiga.caminhoImg,
     produtos: postagem.produtos || postagemAntiga.produtos,
   };
-  console.log(postagemAntiga)
-  console.log(postagemAtualizada)
-  
-  const resultado = await postagemServices.updatePostagem(postagemAtualizada);
-  
-  if (resultado) {
-    return res
-      .status(200)
-      .json({
-        mensagem: "Postagem atualizada com sucesso",
-        postagem: resultado,
-      });
-    } else {
-      return res.status(500).json({ erro: "Erro ao atualizar a postagem" });
-    }
-  }
+  console.log(postagemAntiga);
+  console.log(postagemAtualizada);
 
-  export default {
-    createPostagem,
+  const resultado = await postagemServices.updatePostagem(postagemAtualizada);
+
+  if (resultado) {
+    // Apaga a imagem antiga, se existia
+    if (postagemAntiga.caminhoImg && postagem.caminhoimg) {
+      apagarArquivo(postagemAntiga.caminhoImg);
+    }
+
+    return res.status(200).json({
+      mensagem: "Postagem atualizada com sucesso",
+      postagem: resultado,
+    });
+  } else {
+    return res.status(500).json({ erro: "Erro ao atualizar a postagem" });
+  }
+}
+
+export default {
+  createPostagem,
   readPostagens,
   deletePostagem,
   readDependencias,
