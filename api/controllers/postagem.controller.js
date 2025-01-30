@@ -100,4 +100,19 @@ async function deletePostagem(req, res) {
   }
 }
 
-export default { createPostagem, readPostagens, deletePostagem };
+async function readDependencias(req, res) {
+  const dependencias = await postagemServices.readDependencias();
+
+  if (!dependencias) {
+    return res.status(400).json({
+      erro: "Não foi possível consultar as dependências",
+    });
+  } else if (dependencias.length >= 1) {
+    return res.status(200).json({ dependencias });
+  } else {
+    return res.status(200).json({ mensagem: "Nenhum dependência encontrada" });
+  }
+  
+}
+
+export default { createPostagem, readPostagens, deletePostagem, readDependencias };
