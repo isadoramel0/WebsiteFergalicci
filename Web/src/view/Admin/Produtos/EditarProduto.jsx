@@ -37,7 +37,7 @@ const EditarProduto = () => {
     event.preventDefault();
 
     const formData = new FormData();
-    formData.append('nomeProd', nome);
+    formData.append('nome', nome);
     if (imagem) {
       formData.append('foto_produto', imagem);
     }
