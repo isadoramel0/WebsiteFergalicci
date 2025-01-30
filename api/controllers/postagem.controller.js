@@ -72,7 +72,9 @@ async function readPostagens(req, res) {
   } else if (postagens.length >= 1) {
     return res.status(200).json({ postagens });
   } else {
-    return res.status(200).json({ postagens: [], mensagem: "Nenhuma postagem cadastrada" });
+    return res
+      .status(200)
+      .json({ postagens: [], mensagem: "Nenhuma postagem cadastrada" });
   }
 }
 
@@ -112,7 +114,74 @@ async function readDependencias(req, res) {
   } else {
     return res.status(200).json({ mensagem: "Nenhum dependência encontrada" });
   }
-  
 }
 
-export default { createPostagem, readPostagens, deletePostagem, readDependencias };
+async function updatePostagem(req, res) {
+  const { idPostagem } = req.params;
+  const postagem = {
+    tituloPost: req.body.tituloPost,
+    corpo: req.body.corpo,
+    tipoConteudo: req.body.tipoConteudo === "true",
+    caminhoimg: req.file ? req.file.filename : null,
+    produtos: req.body.produtos ? JSON.parse(req.body.produtos) : [],
+  };
+
+  console.log(postagem);
+
+  // Confirmar que o ID da postagem existe no banco de dados
+  const postagemAntiga = await postagemServices.readPostagem(idPostagem);
+  if (!postagemAntiga) {
+    return res.status(404).json({ erro: "Postagem não encontrada" });
+  }
+
+  // Verificar se os produtos existem no banco de dados
+  if (postagem.produtos.lenght > 0) {
+    const produtosExistem = await produtoRepository.functionAllExisting(
+      postagem.produtos
+    );
+    if (!produtosExistem) {
+      if (postagem.caminhoimg) {
+        apagarArquivo(postagem.caminhoimg);
+      }
+      return res
+        .status(400)
+        .json({ erros: ["Um ou mais produtos fornecidos não existem"] });
+    }
+  }
+
+  // Atualizar as informações da postagem no banco de dados
+  const postagemAtualizada = {
+    idPostagem,
+    tituloPost: postagem.tituloPost || postagemAntiga.tituloPost,
+    tipoConteudo: postagem.tipoConteudo || postagemAntiga.tipoConteudo,
+    corpo: postagem.corpo || postagemAntiga.corpo,
+    caminhoimg: postagem.caminhoimg || postagemAntiga.caminhoImg,
+    produtos: postagem.produtos || postagemAntiga.produtos,
+  };
+  console.log(postagemAntiga);
+  console.log(postagemAtualizada);
+
+  const resultado = await postagemServices.updatePostagem(postagemAtualizada);
+
+  if (resultado) {
+    // Apaga a imagem antiga, se existia
+    if (postagemAntiga.caminhoImg && postagem.caminhoimg) {
+      apagarArquivo(postagemAntiga.caminhoImg);
+    }
+
+    return res.status(200).json({
+      mensagem: "Postagem atualizada com sucesso",
+      postagem: resultado,
+    });
+  } else {
+    return res.status(500).json({ erro: "Erro ao atualizar a postagem" });
+  }
+}
+
+export default {
+  createPostagem,
+  readPostagens,
+  deletePostagem,
+  readDependencias,
+  updatePostagem,
+};
