@@ -25,6 +25,7 @@ async function novoUsuario() {
   try {
     const currentUrl = await driver.getCurrentUrl();
     await assert.strictEqual(currentUrl, "http://localhost:5173/login");
+    console.log("Usuário cadastrado com sucesso!");
   } catch (error) {
     console.error(error);
   }

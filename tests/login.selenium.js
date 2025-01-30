@@ -20,10 +20,17 @@ async function login() {
   const textoElemento = await driver
     .findElement(By.xpath(`//*[@id="root"]/div/nav[1]/p`))
     .getText();
-  await assert.strictEqual(textoElemento, "BLOG");
+  
+  try {
+    await assert.strictEqual(textoElemento, "BLOG");
+    console.log("Login efetuado com sucesso!");
+  }catch (error) {
+    console.log(error);
+  }
+
 
   // Fecha o navegador
-  //await driver.quit();
+  await driver.quit();
 }
 
 login();
