@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import PopUpSucesso from '../../../components/PopUpSucesso/PopUpSucesso.jsx';
 import Pagination from '../../../components/Pagination/Pagination.jsx';
 import './CadastrarPostagem.css';
 
@@ -15,7 +14,6 @@ const EditarPostagem = () => {
   const [paginaAtual, setPaginaAtual] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [showEditSuccessPopup, setShowEditSuccessPopup] = useState(false);
   const navigate = useNavigate();
   const produtosPorPagina = 5;
 
@@ -88,7 +86,7 @@ const EditarPostagem = () => {
       });
 
       if (response.ok) {
-          navigate('/admin/postagens');
+        navigate('/admin/postagens', { state: { showEditSuccessPopup: true } });
       } else {
         const errorData = await response.json();
         setErrorMessage(errorData.erro || 'Erro ao editar postagem.');

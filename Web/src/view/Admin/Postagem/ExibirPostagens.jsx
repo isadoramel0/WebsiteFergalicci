@@ -57,7 +57,7 @@ const ExibirPostagens = () => {
   }, [showSuccessPopup, showEditSuccessPopup, navigate, location.pathname]);
 
   const handleEdit = (idPostagem) => {
-    navigate(`/admin/postagens/editar/${idPostagem}`, { state: { showEditSuccessPopup: true } });
+    navigate(`/admin/postagens/editar/${idPostagem}`);
   };
 
   const handleDelete = async (idPostagem) => {
