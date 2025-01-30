@@ -67,7 +67,7 @@ const Blog = () => {
       <div className="postagens">
         {filteredPosts.map((post, index) => (
           <div key={index} className="post-blog">
-            <img src={`/imgs/${post.caminhoImg}`} alt="Imagem da postagem" className='img-post-blog' />
+            <img src={`/storage/${post.caminhoImg}`} alt="Imagem da postagem" className='img-post-blog' />
             <p className='titulo-post-blog'>{post.tituloPost}</p>
           </div>
         ))}

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import './Landing.css';
 import { Link } from 'react-router-dom';
 import { motion, useAnimation } from 'framer-motion';
-import imagem from '../../../../../public/produtos/1738244647010-212655005.jpeg'
 
 function Landing() {
   const [posts, setPosts] = useState([]);
@@ -77,7 +76,7 @@ function Landing() {
           >
             {posts.map((post, index) => (
               <motion.div className="post" key={index}>
-                <img src={`/imgs/${post.caminhoImg}`} alt={`Post ${index}`} />
+                <img src={`/storage/${post.caminhoImg}`} alt={`Post ${index}`} />
                 <p className="titulo">{post.tituloPost}</p>
                 <p className="descricao">{post.corpo}</p>
               </motion.div>

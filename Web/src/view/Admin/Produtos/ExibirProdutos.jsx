@@ -27,10 +27,6 @@ const ExibirProdutos = () => {
         const idUsuario = localStorage.getItem('idUsuario');
         const admin = localStorage.getItem('admin');
 
-        // console.log('Token:', token);
-        // console.log('idUsuario:', idUsuario);
-        // console.log('Admin:', admin);
-        
         const response = await fetch(`http://localhost:3000/produtos`, {
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -62,6 +58,25 @@ const ExibirProdutos = () => {
   const confirmDelete = async () => {
     try {
       const token = localStorage.getItem('token');
+
+      // Verificar dependências
+      const dependenciasResponse = await fetch(`http://localhost:3000/postagens/dependencias`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+      const dependenciasData = await dependenciasResponse.json();
+      const dependencias = dependenciasData.dependencias;
+
+      const produtoAssociado = dependencias.some(dep => dep.idProduto === produtoToDelete);
+
+      if (produtoAssociado) {
+        setShowErrorPopup(true);
+        setShowPopUpExcluir(false);
+        return;
+      }
+
+      // Excluir produto se não houver dependências
       const response = await fetch(`http://localhost:3000/produtos/${produtoToDelete}`, {
         method: 'DELETE',
         headers: {
@@ -70,18 +85,15 @@ const ExibirProdutos = () => {
       });
       const result = await response.json();
       console.log("Resposta da exclusão:", result);
-      
-      // Atualizar a lógica para controlar o showErrorPopup corretamente
+
       if (result.mensagem === "Produto deletado com sucesso") {
         setShowErrorPopup(false);
-        console.log("Estado showErrorPopup:", showErrorPopup);
         setProdutos(produtos.filter(produto => produto.idProduto !== produtoToDelete));
-        setShowErrorPopup(false); // Garantir que o popup de erro seja fechado se a exclusão for bem-sucedida
       } else {
-        setShowErrorPopup(true); // Mostrar o popup de erro apenas em caso de falha
+        setShowErrorPopup(true);
       }
-      
-      setShowPopUpExcluir(false); // Sempre fechar o PopUpExcluir
+
+      setShowPopUpExcluir(false);
       setProdutoToDelete(null);
     } catch (error) {
       console.error('Erro ao deletar produto:', error);
@@ -89,7 +101,6 @@ const ExibirProdutos = () => {
       setShowErrorPopup(true);
     }
   };
-  
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);

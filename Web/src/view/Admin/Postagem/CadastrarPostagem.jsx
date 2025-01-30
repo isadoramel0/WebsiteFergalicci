@@ -66,6 +66,21 @@ const CadastrarPostagem = () => {
       });
 
       if (response.ok) {
+        const postagem = await response.json();
+        const idPostagem = postagem.resultRows.idPostagem;
+
+        // Enviar dependências
+        for (const idProduto of produtosSelecionados) {
+          await fetch('http://localhost:3000/postagens/dependencias', {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ idProduto, idPostagem }),
+          });
+        }
+
         navigate('/admin/postagens', { state: { showSuccessPopup: true } });
       } else {
         const errorData = await response.json();
