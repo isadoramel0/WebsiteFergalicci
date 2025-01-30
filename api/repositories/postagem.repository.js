@@ -158,10 +158,31 @@ async function temDependencias(idProduto) {
   }
 }
 
+async function readDependencias() {
+  const connection = await database.connect();
+  let resultRows = null;
+
+  try {
+    const queryResult = await connection.query(
+      `SELECT * FROM "ProdutosDePostagem"`
+    );
+    resultRows = queryResult.rows;
+  } catch (error) {
+    console.log(error);
+    console.error("Erro ao buscar dependências no banco de dados");
+    return null;
+  } finally {
+    connection.release();
+  }
+
+  return resultRows;
+}
+
 export default {
   createPostagem,
   readPostagens,
   deletePostagem,
   readPostagem,
   temDependencias,
+  readDependencias,
 };

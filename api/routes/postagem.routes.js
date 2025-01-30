@@ -13,11 +13,17 @@ router.post(
   upload.single("foto_postagem"),
   postagemController.createPostagem
 );
+
 router.get(
   "",
+  postagemController.readPostagens
+);
+
+router.get(
+  "/dependencias",
   token.authenticateAccessToken,
   checkAdminPrivileges,
-  postagemController.readPostagens
+  postagemController.readDependencias
 );
 
 router.delete(
