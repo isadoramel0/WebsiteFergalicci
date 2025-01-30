@@ -1,4 +1,5 @@
-import { Builder, By } from "selenium-webdriver";
+import { Builder, By, until } from "selenium-webdriver";
+import { assert } from "chai";
 
 async function novoUsuario() {
   // Abrir o navegador
@@ -14,11 +15,22 @@ async function novoUsuario() {
   await driver.findElement(By.name("nome")).sendKeys("Fulano da Silva");
   await driver.findElement(By.name("email")).sendKeys("fulano@email.com");
   await driver.findElement(By.name("password")).sendKeys("umaSenhaSimples0");
-  await driver.findElement(By.name("confirmPassword")).sendKeys("umaSenhaSimples0");
+  await driver
+    .findElement(By.name("confirmPassword"))
+    .sendKeys("umaSenhaSimples0");
   await driver.findElement(By.xpath(`//*[@id="root"]/div/form/button`)).click();
+  await driver.wait(until.elementLocated(By.xpath(`//*[@id="root"]/div/form/button`)), 5000);
+
+  // Verifica se o usuário foi redirecionado para a página de login
+  try {
+    const currentUrl = await driver.getCurrentUrl();
+    await assert.strictEqual(currentUrl, "http://localhost:5173/login");
+  } catch (error) {
+    console.error(error);
+  }
 
   // Fecha o navegador
   await driver.quit();
-};
+}
 
 novoUsuario();
