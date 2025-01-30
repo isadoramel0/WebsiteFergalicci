@@ -13,11 +13,19 @@ router.post(
   upload.single("foto_produto"),
   postagemController.createPostagem
 );
+
 router.get(
   "",
   token.authenticateAccessToken,
   checkAdminPrivileges,
   postagemController.readPostagens
+);
+
+router.get(
+  "/dependencias",
+  token.authenticateAccessToken,
+  checkAdminPrivileges,
+  postagemController.readDependencias
 );
 
 router.delete(
