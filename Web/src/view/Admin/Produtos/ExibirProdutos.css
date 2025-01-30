@@ -25,7 +25,7 @@
 
 .admin-produtos .fundo-tela {
     background-color: var(--vinho);
-    background-image: url('imgs/textura_pelos.png');
+    background-image: url('../../../../public/imgs/textura_pelos.png');
     background-size: cover;
     background-blend-mode: multiply;
     opacity: 1; 

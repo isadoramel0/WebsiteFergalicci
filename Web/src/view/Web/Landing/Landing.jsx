@@ -2,35 +2,31 @@ import React, { useEffect, useState } from 'react';
 import './Landing.css';
 import { Link } from 'react-router-dom';
 import { motion, useAnimation } from 'framer-motion';
+import imagem from '../../../../../public/produtos/1738244647010-212655005.jpeg'
 
 function Landing() {
-  const posts = [
-    {
-      img: 'imgs/image-post.png',
-      title: 'Nome da postagem 1',
-      description: 'tema da postagem resumo 1',
-    },
-    {
-      img: 'imgs/image-post.png',
-      title: 'Nome da postagem 2',
-      description: 'tema da postagem resumo 2',
-    },
-    {
-      img: 'imgs/image-post.png',
-      title: 'Nome da postagem 3',
-      description: 'tema da postagem resumo 3',
-    },
-    {
-      img: 'imgs/image-post.png',
-      title: 'Nome da postagem 4',
-      description: 'tema da postagem resumo 4',
-    },
-  ];
-
+  const [posts, setPosts] = useState([]);
   const [carouselX, setCarouselX] = useState(0);
   const controls = useAnimation();
 
-  // Faz o carrossel deslizar automaticamente
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/postagens');
+        const data = await response.json();
+        if (data.postagens) {
+          const shuffledPosts = data.postagens.sort(() => 0.5 - Math.random());
+          const selectedPosts = shuffledPosts.slice(0, 4);
+          setPosts(selectedPosts);
+        }
+      } catch (error) {
+        console.error('Erro ao buscar postagens:', error);
+      }
+    };
+
+    fetchPosts();
+  }, []);
+
   useEffect(() => {
     const interval = setInterval(() => {
       setCarouselX(prev => prev - 300); // Move 300px para a esquerda
@@ -81,9 +77,9 @@ function Landing() {
           >
             {posts.map((post, index) => (
               <motion.div className="post" key={index}>
-                <img src={post.img} alt={`Post ${index}`} />
-                <p className="titulo">{post.title}</p>
-                <p className="descricao">{post.description}</p>
+                <img src={`/imgs/${post.caminhoImg}`} alt={`Post ${index}`} />
+                <p className="titulo">{post.tituloPost}</p>
+                <p className="descricao">{post.corpo}</p>
               </motion.div>
             ))}
           </motion.div>
