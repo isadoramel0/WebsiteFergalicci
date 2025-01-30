@@ -17,6 +17,7 @@ const ExibirProdutos = () => {
   const [produtoToDelete, setProdutoToDelete] = useState(null);
   const [showPopUpExcluir, setShowPopUpExcluir] = useState(false);
   const [showSuccessPopup, setShowSuccessPopup] = useState(location.state?.showSuccessPopup || false);
+  const [showErrorPopup, setShowErrorPopup] = useState(false);
   const produtosPorPagina = 5;
 
   useEffect(() => {
@@ -61,19 +62,34 @@ const ExibirProdutos = () => {
   const confirmDelete = async () => {
     try {
       const token = localStorage.getItem('token');
-      await fetch(`http://localhost:3000/produtos/${produtoToDelete}`, {
+      const response = await fetch(`http://localhost:3000/produtos/${produtoToDelete}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
         },
       });
-      setProdutos(produtos.filter(produto => produto.idProduto !== produtoToDelete));
-      setShowPopUpExcluir(false);
+      const result = await response.json();
+      console.log("Resposta da exclusão:", result);
+      
+      // Atualizar a lógica para controlar o showErrorPopup corretamente
+      if (result.mensagem === "Produto deletado com sucesso") {
+        setShowErrorPopup(false);
+        console.log("Estado showErrorPopup:", showErrorPopup);
+        setProdutos(produtos.filter(produto => produto.idProduto !== produtoToDelete));
+        setShowErrorPopup(false); // Garantir que o popup de erro seja fechado se a exclusão for bem-sucedida
+      } else {
+        setShowErrorPopup(true); // Mostrar o popup de erro apenas em caso de falha
+      }
+      
+      setShowPopUpExcluir(false); // Sempre fechar o PopUpExcluir
       setProdutoToDelete(null);
     } catch (error) {
       console.error('Erro ao deletar produto:', error);
+      setShowPopUpExcluir(false);
+      setShowErrorPopup(true);
     }
   };
+  
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -167,6 +183,14 @@ const ExibirProdutos = () => {
           <div className="aviso">Aviso</div>
           <p>Item cadastrado com sucesso!</p>
           <button onClick={() => setShowSuccessPopup(false)}>OK</button>
+        </div>
+      )}
+
+      {showErrorPopup && (
+        <div className="popup-success">
+          <div className="aviso">Aviso</div>
+          <p>Não é possível excluir o produto, pois ele está associado a uma postagem.</p>
+          <button onClick={() => setShowErrorPopup(false)}>OK</button>
         </div>
       )}
     </div>

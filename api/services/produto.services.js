@@ -24,7 +24,7 @@ async function updateProduto(produto) {
 async function deleteProduto(idProduto) {
   // Buscar se o produto existe em alguma postagem
   const dependencia = await postagemRepository.temDependencias(idProduto);
-  if (dependencia.lenght > 1) {
+  if (dependencia.lenght > 0) {
     return {
       success: false,
       data: "O produto possui dependências em postagens",

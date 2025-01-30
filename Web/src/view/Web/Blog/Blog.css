@@ -1,0 +1,56 @@
+* {
+    font-family: 'Lora';
+    font-weight: 200 !important;
+}
+
+.blog {
+    background-color: #DC98A0;
+}
+
+.blog .nav-blog,
+.blog .tipo-post {
+    background-color: #070607;
+    color: var(--branco);
+    font-size: 25px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 0;
+}
+
+.blog .nav-blog {
+    border-bottom: solid 0.3rem var(--branco);
+}
+
+.blog .nav-blog img {
+    margin-right: 3.5rem;
+    width: 230px;
+}
+
+.blog .tipo-post {
+    margin-bottom: 5rem;
+}
+
+.blog .tipo-post .tipo-moda {
+    margin-right: 3rem;
+}
+
+.blog .postagens {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 0 8rem;
+}
+
+.blog .post-blog {
+    background-color: white;
+    padding: 2rem;
+    margin: 1rem;
+    width: 25rem;
+}
+
+.blog .post-blog .img-post-blog {
+    width: 100%;
+}
+
