@@ -74,7 +74,8 @@
 }
 
 .pre-blog .carrossel .post img {
-    height: 35rem;
+    width: 100%;
+    height: 27rem;
 }
 
 .pre-blog .carrossel .post .titulo {
