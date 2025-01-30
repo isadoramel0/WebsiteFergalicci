@@ -3,10 +3,7 @@ import './ExibirProdutos.css';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Pagination from '../../../components/Pagination/Pagination.jsx';
 import PopUpExcluir from '../../../components/PopUpExcluir/PopUpExcluir.jsx';
-import logo from '../../../../public/imgs/Fergalicci-preto.png';  
-import lupa from '../../../../public/imgs/Lupa.png';
-import iconeLapis from '../../../../public/imgs/IconeLápis.png';
-import iconeLixeira from '../../../../public/imgs/IconeLixeira.png';
+import PopUpSucesso from '../../../components/PopUpSucesso/PopUpSucesso.jsx';
 
 const ExibirProdutos = () => {
   const navigate = useNavigate();
@@ -17,7 +14,9 @@ const ExibirProdutos = () => {
   const [produtoToDelete, setProdutoToDelete] = useState(null);
   const [showPopUpExcluir, setShowPopUpExcluir] = useState(false);
   const [showSuccessPopup, setShowSuccessPopup] = useState(location.state?.showSuccessPopup || false);
+  const [showEditSuccessPopup, setShowEditSuccessPopup] = useState(location.state?.showEditSuccessPopup || false);
   const [showErrorPopup, setShowErrorPopup] = useState(false);
+  const [showDeleteSuccessPopup, setShowDeleteSuccessPopup] = useState(false);
   const produtosPorPagina = 5;
 
   useEffect(() => {
@@ -47,7 +46,7 @@ const ExibirProdutos = () => {
   }, [paginaAtual]);
 
   const handleEdit = (idProduto) => {
-    navigate(`/admin/produtos/editar/${idProduto}`);
+    navigate(`/admin/produtos/editar/${idProduto}`, { state: { showEditSuccessPopup: true } });
   };
 
   const handleDelete = async (idProduto) => {
@@ -89,6 +88,7 @@ const ExibirProdutos = () => {
       if (result.mensagem === "Produto deletado com sucesso") {
         setShowErrorPopup(false);
         setProdutos(produtos.filter(produto => produto.idProduto !== produtoToDelete));
+        setShowDeleteSuccessPopup(true);
       } else {
         setShowErrorPopup(true);
       }
@@ -120,7 +120,7 @@ const ExibirProdutos = () => {
   return (
     <div className='admin-produtos'>
       <nav className='nav-admin'>
-        <Link to='/'><img src={logo} alt="Fergalicci" className="logo-admin" /></Link>
+        <Link to='/'><img src={'../../../../public/imgs/Fergalicci-preto.png'} alt="Fergalicci" className="logo-admin" /></Link>
         <h3>Administrador</h3>
       </nav>
 
@@ -133,7 +133,7 @@ const ExibirProdutos = () => {
           <div>
             <div className="extras-tabela">
               <div className="busca">
-                <img src={lupa} alt="Icone Lupa" />
+                <img src={'../../../../public/imgs/Lupa.png'} alt="Icone Lupa" />
                 <input
                   className='buscar'
                   type="text"
@@ -160,10 +160,10 @@ const ExibirProdutos = () => {
                         <p className="nome-produto">{produto.nomeProd}</p>
                         <div className="botoes">
                           <button onClick={() => handleEdit(produto.idProduto)} className='btn-editar'>Editar
-                            <img className='icones' src={iconeLapis} alt="Icone Lápis" />
+                            <img className='icones' src={'../../../../public/imgs/IconeLápis.png'} alt="Icone Lápis" />
                           </button>
                           <button onClick={() => handleDelete(produto.idProduto)} className="btn-excluir">Excluir
-                            <img className='icones' src={iconeLixeira} alt="Icone Lixeira" />
+                            <img className='icones' src={'../../../../public/imgs/IconeLixeira.png'} alt="Icone Lixeira" />
                           </button>
                         </div>
                       </td>
@@ -189,19 +189,33 @@ const ExibirProdutos = () => {
         onConfirm={confirmDelete}
       />
 
-      {showSuccessPopup && (
-        <div className="popup-success">
-          <div className="aviso">Aviso</div>
-          <p>Item cadastrado com sucesso!</p>
-          <button onClick={() => setShowSuccessPopup(false)}>OK</button>
-        </div>
-      )}
+      <PopUpSucesso
+        show={showSuccessPopup}
+        message="Item cadastrado com sucesso!"
+        onClose={() => setShowSuccessPopup(false)}
+      />
+
+      <PopUpSucesso
+        show={showDeleteSuccessPopup}
+        message="Produto deletado com sucesso!"
+        onClose={() => setShowDeleteSuccessPopup(false)}
+      />
+
+      <PopUpSucesso
+        show={showEditSuccessPopup}
+        message="Produto editado com sucesso!"
+        onClose={() => setShowEditSuccessPopup(false)}
+      />
 
       {showErrorPopup && (
-        <div className="popup-success">
-          <div className="aviso">Aviso</div>
-          <p>Não é possível excluir o produto, pois ele está associado a uma postagem.</p>
-          <button onClick={() => setShowErrorPopup(false)}>OK</button>
+        <div className="engloba-caixa-alerta">
+          <div className="caixa-alerta">
+            <div className="atencao">Aviso</div>
+            <p className="text-alert">Não é possível excluir o produto, pois ele está associado a uma postagem.</p>
+            <div className="modal-buttons">
+              <button id="btn-salvar-visualizar-caixa" onClick={() => setShowErrorPopup(false)}>OK</button>
+            </div>
+          </div>
         </div>
       )}
     </div>

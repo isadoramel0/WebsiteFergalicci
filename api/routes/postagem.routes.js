@@ -25,12 +25,18 @@ router.get(
   checkAdminPrivileges,
   postagemController.readDependencias
 );
-
 router.delete(
   "/:idPostagem",
   token.authenticateAccessToken,
   checkAdminPrivileges,
   postagemController.deletePostagem
+)
+router.put(
+  "/:idPostagem",
+  token.authenticateAccessToken,
+  checkAdminPrivileges,
+  upload.single("foto_produto"),
+  postagemController.updatePostagem
 )
 
 export default router;

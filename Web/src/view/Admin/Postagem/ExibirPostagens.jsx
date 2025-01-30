@@ -2,10 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Pagination from '../../../components/Pagination/Pagination.jsx';
 import PopUpExcluir from '../../../components/PopUpExcluir/PopUpExcluir.jsx';
-import logo from '../../../../public/imgs/Fergalicci-preto.png';  
-import lupa from '../../../../public/imgs/Lupa.png';
-import iconeLapis from '../../../../public/imgs/IconeLápis.png';
-import iconeLixeira from '../../../../public/imgs/IconeLixeira.png';
+import PopUpSucesso from '../../../components/PopUpSucesso/PopUpSucesso.jsx';
 import './ExibirPostagens.css'
 
 const ExibirPostagens = () => {
@@ -17,6 +14,8 @@ const ExibirPostagens = () => {
   const [postagemToDelete, setPostagemToDelete] = useState(null);
   const [showPopUpExcluir, setShowPopUpExcluir] = useState(false);
   const [showSuccessPopup, setShowSuccessPopup] = useState(location.state?.showSuccessPopup || false);
+  const [showEditSuccessPopup, setShowEditSuccessPopup] = useState(location.state?.showEditSuccessPopup || false);
+  const [showDeleteSuccessPopup, setShowDeleteSuccessPopup] = useState(false);
   const postagensPorPagina = 5;
 
   useEffect(() => {
@@ -45,8 +44,20 @@ const ExibirPostagens = () => {
     fetchPostagens();
   }, [paginaAtual]);
 
+  useEffect(() => {
+    if (showSuccessPopup || showEditSuccessPopup) {
+      const timer = setTimeout(() => {
+        setShowSuccessPopup(false);
+        setShowEditSuccessPopup(false);
+        navigate(location.pathname, { replace: true, state: {} });
+      }, 3000); // Oculta o popup após 3 segundos
+
+      return () => clearTimeout(timer);
+    }
+  }, [showSuccessPopup, showEditSuccessPopup, navigate, location.pathname]);
+
   const handleEdit = (idPostagem) => {
-    navigate(`/admin/postagens/editar/${idPostagem}`);
+    navigate(`/admin/postagens/editar/${idPostagem}`, { state: { showEditSuccessPopup: true } });
   };
 
   const handleDelete = async (idPostagem) => {
@@ -66,6 +77,7 @@ const ExibirPostagens = () => {
       setPostagens(postagens.filter(postagem => postagem.idPostagem !== postagemToDelete));
       setShowPopUpExcluir(false);
       setPostagemToDelete(null);
+      setShowDeleteSuccessPopup(true);
     } catch (error) {
       console.error('Erro ao deletar postagem:', error);
     }
@@ -89,7 +101,7 @@ const ExibirPostagens = () => {
   return (
     <div className='admin-postagens'>
       <nav className='nav-admin'>
-        <Link to='/'><img src={logo} alt="Fergalicci" className="logo-admin" /></Link>
+        <Link to='/'><img src='../../../../public/imgs/Fergalicci-preto.png' alt="Fergalicci" className="logo-admin" /></Link>
         <h3>Administrador</h3>
       </nav>
 
@@ -102,7 +114,7 @@ const ExibirPostagens = () => {
           <div>
             <div className="extras-tabela">
               <div className="busca">
-                <img src={lupa} alt="Icone Lupa" />
+                <img src={'../../../../public/imgs/Lupa.png'} alt="Icone Lupa" />
                 <input
                   className='buscar'
                   type="text"
@@ -129,10 +141,10 @@ const ExibirPostagens = () => {
                         <p className="nome-postagem">{postagem.tituloPost}</p>
                         <div className="botoes">
                           <button onClick={() => handleEdit(postagem.idPostagem)} className='btn-editar'>Editar
-                            <img className='icones' src={iconeLapis} alt="Icone Lápis" />
+                            <img className='icones' src={'../../../../public/imgs/IconeLápis.png'} alt="Icone Lápis" />
                           </button>
                           <button onClick={() => handleDelete(postagem.idPostagem)} className="btn-excluir">Excluir
-                            <img className='icones' src={iconeLixeira} alt="Icone Lixeira" />
+                            <img className='icones' src={'../../../../public/imgs/IconeLixeira.png'} alt="Icone Lixeira" />
                           </button>
                         </div>
                       </td>
@@ -158,13 +170,23 @@ const ExibirPostagens = () => {
         onConfirm={confirmDelete}
       />
 
-      {showSuccessPopup && (
-        <div className="popup-success">
-          <div className="aviso">Aviso</div>
-          <p>Item cadastrado com sucesso!</p>
-          <button onClick={() => setShowSuccessPopup(false)}>OK</button>
-        </div>
-      )}
+      <PopUpSucesso
+        show={showSuccessPopup}
+        message="Item cadastrado com sucesso!"
+        onClose={() => setShowSuccessPopup(false)}
+      />
+
+      <PopUpSucesso
+        show={showDeleteSuccessPopup}
+        message="Postagem deletada com sucesso!"
+        onClose={() => setShowDeleteSuccessPopup(false)}
+      />
+
+      <PopUpSucesso
+        show={showEditSuccessPopup}
+        message="Postagem editada com sucesso!"
+        onClose={() => setShowEditSuccessPopup(false)}
+      />
     </div>
   );
 }
