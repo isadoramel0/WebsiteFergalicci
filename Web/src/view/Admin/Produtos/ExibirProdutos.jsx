@@ -17,6 +17,7 @@ const ExibirProdutos = () => {
   const [produtoToDelete, setProdutoToDelete] = useState(null);
   const [showPopUpExcluir, setShowPopUpExcluir] = useState(false);
   const [showSuccessPopup, setShowSuccessPopup] = useState(location.state?.showSuccessPopup || false);
+  const [showErrorPopup, setShowErrorPopup] = useState(false);
   const produtosPorPagina = 5;
 
   useEffect(() => {
@@ -26,10 +27,6 @@ const ExibirProdutos = () => {
         const idUsuario = localStorage.getItem('idUsuario');
         const admin = localStorage.getItem('admin');
 
-        console.log('Token:', token);
-        console.log('idUsuario:', idUsuario);
-        console.log('Admin:', admin);
-        
         const response = await fetch(`http://localhost:3000/produtos`, {
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -61,17 +58,47 @@ const ExibirProdutos = () => {
   const confirmDelete = async () => {
     try {
       const token = localStorage.getItem('token');
-      await fetch(`http://localhost:3000/produtos/${produtoToDelete}`, {
+
+      // Verificar dependências
+      const dependenciasResponse = await fetch(`http://localhost:3000/postagens/dependencias`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+      const dependenciasData = await dependenciasResponse.json();
+      const dependencias = dependenciasData.dependencias;
+
+      const produtoAssociado = dependencias.some(dep => dep.idProduto === produtoToDelete);
+
+      if (produtoAssociado) {
+        setShowErrorPopup(true);
+        setShowPopUpExcluir(false);
+        return;
+      }
+
+      // Excluir produto se não houver dependências
+      const response = await fetch(`http://localhost:3000/produtos/${produtoToDelete}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
         },
       });
-      setProdutos(produtos.filter(produto => produto.idProduto !== produtoToDelete));
+      const result = await response.json();
+      console.log("Resposta da exclusão:", result);
+
+      if (result.mensagem === "Produto deletado com sucesso") {
+        setShowErrorPopup(false);
+        setProdutos(produtos.filter(produto => produto.idProduto !== produtoToDelete));
+      } else {
+        setShowErrorPopup(true);
+      }
+
       setShowPopUpExcluir(false);
       setProdutoToDelete(null);
     } catch (error) {
       console.error('Erro ao deletar produto:', error);
+      setShowPopUpExcluir(false);
+      setShowErrorPopup(true);
     }
   };
 
@@ -123,7 +150,7 @@ const ExibirProdutos = () => {
               <table className='tabela'>
                 <thead className='cabecalho'>
                   <tr>
-                    <th>Nome do Produto</th>
+                    <th>Nome do produto</th>
                   </tr>
                 </thead>
                 <tbody className='corpo-tabela'>
@@ -167,6 +194,14 @@ const ExibirProdutos = () => {
           <div className="aviso">Aviso</div>
           <p>Item cadastrado com sucesso!</p>
           <button onClick={() => setShowSuccessPopup(false)}>OK</button>
+        </div>
+      )}
+
+      {showErrorPopup && (
+        <div className="popup-success">
+          <div className="aviso">Aviso</div>
+          <p>Não é possível excluir o produto, pois ele está associado a uma postagem.</p>
+          <button onClick={() => setShowErrorPopup(false)}>OK</button>
         </div>
       )}
     </div>

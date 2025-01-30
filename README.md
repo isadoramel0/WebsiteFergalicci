@@ -21,10 +21,11 @@ O sistema Fergalicci atua como uma maneira de promover uma marca de alto padrão
 As principais funcionalidades são:
 
 <ul>
+  <li>Cadastro de usuários leitores do sistema</li>
   <li>Login de usuários leitores do sistema</li>
   <li>Login do administrador do sistema</li>
-  <li>Controle sobre os produtos ofertados no website(adicionar, excluir, alterar)</li>
-  <li>Controle sobre as postagens publicadas no website(adicionar, excluir, alterar)</li>
+  <li>Controle sobre os produtos ofertados no website(adicionar, excluir, alterar, listar)</li>
+  <li>Controle sobre as postagens publicadas no website(adicionar, excluir, alterar, listar)</li>
 </ul>
 
 ### Tipos de Usuários
@@ -48,7 +49,7 @@ O sistema prevê:
     - <b>Framework:</b> Express v4.16 
 
 ### Banco de Dados
-- <b>PostgreeSQL</b> - v15.7
+- <b>PostgreeSQL</b> - v16.0
 
 ## Estrutura de Diretório
 

@@ -72,7 +72,7 @@ async function readPostagens(req, res) {
   } else if (postagens.length >= 1) {
     return res.status(200).json({ postagens });
   } else {
-    return res.status(200).json({ mensagem: "Nenhuma postagem cadastrada" });
+    return res.status(200).json({ postagens: [], mensagem: "Nenhuma postagem cadastrada" });
   }
 }
 
@@ -98,6 +98,21 @@ async function deletePostagem(req, res) {
   } else {
     return res.status(500).json({ erro: "Erro ao deletar a postagem" });
   }
+}
+
+async function readDependencias(req, res) {
+  const dependencias = await postagemServices.readDependencias();
+
+  if (!dependencias) {
+    return res.status(400).json({
+      erro: "Não foi possível consultar as dependências",
+    });
+  } else if (dependencias.length >= 1) {
+    return res.status(200).json({ dependencias });
+  } else {
+    return res.status(200).json({ mensagem: "Nenhum dependência encontrada" });
+  }
+  
 }
 
 async function updatePostagem(req, res) {
@@ -142,9 +157,9 @@ async function updatePostagem(req, res) {
   };
   console.log(postagemAntiga)
   console.log(postagemAtualizada)
-
+  
   const resultado = await postagemServices.updatePostagem(postagemAtualizada);
-
+  
   if (resultado) {
     return res
       .status(200)
@@ -152,14 +167,15 @@ async function updatePostagem(req, res) {
         mensagem: "Postagem atualizada com sucesso",
         postagem: resultado,
       });
-  } else {
-    return res.status(500).json({ erro: "Erro ao atualizar a postagem" });
+    } else {
+      return res.status(500).json({ erro: "Erro ao atualizar a postagem" });
+    }
   }
-}
 
-export default {
-  createPostagem,
+  export default {
+    createPostagem,
   readPostagens,
   deletePostagem,
+  readDependencias,
   updatePostagem,
 };
