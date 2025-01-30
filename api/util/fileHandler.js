@@ -2,7 +2,7 @@ import multer from "multer";
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "../public/produtos/");
+    cb(null, "../Web/public/storage/");
   },
   filename: function (req, file, cb) {
     const extension = file.mimetype.split('/')[1]

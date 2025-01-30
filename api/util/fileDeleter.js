@@ -10,7 +10,7 @@ export function apagarArquivo(nomeArquivo, caminhoAlternativo=null) {
   if (caminhoAlternativo) {
     caminho = caminhoAlternativo + nomeArquivo;
   } else {
-    caminho = "../public/produtos/" + nomeArquivo;
+    caminho = "../Web/public/storage/" + nomeArquivo;
   }
 
   fs.unlink(caminho, erro => erro);
