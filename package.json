@@ -1,1 +1,5 @@
-{}
+{
+  "devDependencies": {
+    "selenium-webdriver": "^4.28.1"
+  }
+}
