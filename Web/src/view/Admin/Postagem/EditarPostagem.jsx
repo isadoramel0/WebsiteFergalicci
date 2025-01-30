@@ -32,9 +32,11 @@ const EditarPostagem = () => {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        setTituloPostagem(data.postagem.tituloPost || '');
-        setCorpo(data.postagem.corpo || '');
-        setTipoConteudo(data.postagem.tipoConteudo || true);
+        console.log('Dados da postagem:', data);
+        setTituloPostagem(data.tituloPost || '');
+        setCorpo(data.corpo || '');
+        setTipoConteudo(data.tipoConteudo || true);
+        setProdutosSelecionados(data.produtos || []);
       } catch (error) {
         console.error('Erro ao buscar postagem:', error);
         setErrorMessage('Erro ao buscar postagem.');
@@ -59,27 +61,8 @@ const EditarPostagem = () => {
       }
     };
 
-    const fetchDependencias = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await fetch(`http://localhost:3000/postagens/dependencias/${idPostagem}`, {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-        });
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        setProdutosSelecionados(data.dependencias.map(dep => dep.idProduto));
-      } catch (error) {
-        console.error('Erro ao buscar dependências:', error);
-      }
-    };
-
     fetchPostagem();
     fetchProdutos();
-    fetchDependencias();
   }, [idPostagem, paginaAtual]);
 
   const handleSubmit = async (event) => {
@@ -105,30 +88,7 @@ const EditarPostagem = () => {
       });
 
       if (response.ok) {
-        // Atualizar dependências
-        await fetch(`http://localhost:3000/postagens/dependencias/${idPostagem}`, {
-          method: 'DELETE',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-        });
-
-        for (const idProduto of produtosSelecionados) {
-          await fetch('http://localhost:3000/postagens/dependencias', {
-            method: 'POST',
-            headers: {
-              'Authorization': `Bearer ${token}`,
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ idProduto, idPostagem }),
-          });
-        }
-
-        setShowEditSuccessPopup(true);
-        setTimeout(() => {
-          setShowEditSuccessPopup(false);
-          navigate('/admin/postagens', { state: { showEditSuccessPopup: true } });
-        }, 3000); // Oculta o popup após 3 segundos
+          navigate('/admin/postagens');
       } else {
         const errorData = await response.json();
         setErrorMessage(errorData.erro || 'Erro ao editar postagem.');
@@ -232,12 +192,12 @@ const EditarPostagem = () => {
             </div>
 
             <div className="input-img">
-              <label htmlFor="imagem_postagem">Imagem</label>
-              <label className='btn-img-label' htmlFor="img">Realizar upload de imagem</label>
+              <label htmlFor="foto_postagem">Imagem</label>
+              <label className='btn-img-label' htmlFor="foto_postagem">Realizar upload de imagem</label>
               <input
                 className='btn-img'
                 type="file"
-                id="img"
+                id="foto_postagem"
                 name="foto_postagem"
                 onChange={(e) => setImagem(e.target.files[0])}
               />
@@ -295,12 +255,6 @@ const EditarPostagem = () => {
           </div>
         </form>
       </div>
-
-      <PopUpSucesso
-        show={showEditSuccessPopup}
-        message="Postagem editada com sucesso!"
-        onClose={() => setShowEditSuccessPopup(false)}
-      />
     </div>
   );
 }
