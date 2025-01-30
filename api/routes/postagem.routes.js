@@ -14,9 +14,13 @@ router.post(
   postagemController.createPostagem
 );
 
+router.get("", postagemController.readPostagens);
+
 router.get(
-  "",
-  postagemController.readPostagens
+  "/:idPostagem",
+  token.authenticateAccessToken,
+  checkAdminPrivileges,
+  postagemController.readPostagem
 );
 
 router.get(
@@ -25,18 +29,19 @@ router.get(
   checkAdminPrivileges,
   postagemController.readDependencias
 );
+
 router.delete(
   "/:idPostagem",
   token.authenticateAccessToken,
   checkAdminPrivileges,
   postagemController.deletePostagem
-)
+);
 router.put(
   "/:idPostagem",
   token.authenticateAccessToken,
   checkAdminPrivileges,
   upload.single("foto_produto"),
   postagemController.updatePostagem
-)
+);
 
 export default router;

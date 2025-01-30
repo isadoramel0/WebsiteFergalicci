@@ -178,10 +178,27 @@ async function updatePostagem(req, res) {
   }
 }
 
+async function readPostagem(req, res) {
+  const { idPostagem } = req.params;
+
+  if (!idPostagem) {
+    return res.status(400).json({ erro: "ID da postagem não fornecido" });
+  }
+
+  const postagem = await postagemServices.readPostagem(idPostagem);
+
+  if (!postagem) {
+    return res.status(404).json({ erro: "Postagem não encontrada" });
+  }
+
+  return res.status(200).json(postagem);
+}
+
 export default {
   createPostagem,
   readPostagens,
   deletePostagem,
   readDependencias,
   updatePostagem,
+  readPostagem,
 };

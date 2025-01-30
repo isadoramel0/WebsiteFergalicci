@@ -42,7 +42,7 @@ async function readProdutos(req, res) {
   } else if (produtos.length >= 1) {
     return res.status(200).json({ produtos });
   } else {
-    return res.status(200).json({ mensagem: "Nenhum produto cadastrado" });
+    return res.status(200).json({ produtos: [], mensagem: "Nenhum produto cadastrado" });
   }
 }
 
